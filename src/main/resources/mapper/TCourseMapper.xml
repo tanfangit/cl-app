@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.TCourseMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.TCourse">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="sTime" jdbcType="TIMESTAMP" property="stime" />
+    <result column="cHour" jdbcType="INTEGER" property="chour" />
+    <result column="aCount" jdbcType="INTEGER" property="acount" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="tName" jdbcType="VARCHAR" property="tname" />
+    <result column="tId" jdbcType="INTEGER" property="tid" />
+    <result column="typeId" jdbcType="INTEGER" property="typeid" />
+    <result column="datail" jdbcType="VARCHAR" property="datail" />
+    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+  </resultMap>
+  
+  <resultMap id="TCourseDTOMap" type="com.company.project.dto.TCourseDTO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="sTime" jdbcType="TIMESTAMP" property="stime" />
+    <result column="cHour" jdbcType="INTEGER" property="chour" />
+    <result column="aCount" jdbcType="INTEGER" property="acount" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="tName" jdbcType="VARCHAR" property="tname" />
+    <result column="tId" jdbcType="INTEGER" property="tid" />
+    <result column="typeId" jdbcType="INTEGER" property="typeid" />
+    <result column="datail" jdbcType="VARCHAR" property="datail" />
+    <result column="aStatus" jdbcType="INTEGER" property="aStatus" />
+    
+  </resultMap>
+  <select id="selectTCourseByCondition" parameterType="map" resultMap="TCourseDTOMap">
+     <if test="mid != null">
+       SELECT t1.*,
+			  CASE 
+			  -- 已报名
+			  WHEN t2.`id` IS NOT NULL
+			  THEN 
+			       CASE 
+			          WHEN t1.aCount >=minCount
+			          THEN 2
+			          ELSE 1
+			        END   
+			  ELSE 0
+			  END aStatus
+			  FROM  t_course t1 
+			  LEFT JOIN    t_courseReservation t2 ON  t1.id=t2.cid AND t2.`mId`=#{mid}
+			  
+			  WHERE 1=1 
+			  <if test="cTypeId != null">
+			     and t1.typeId = #{cTypeId}
+			  </if>
+			   <if test="teacherId != null">
+			     and t1.tId = #{teacherId}
+			  </if>
+			   <if test="data != null">
+			     AND DATE_FORMAT(t1.sTime, '%Y-%m-%d') = #{data}
+			  </if>
+			  <if test="cid != null">
+			     AND t1.id != #{cid}
+			  </if>
+    </if>
+    <if test="mid == null">
+       SELECT t1.*, 0 aStatus
+			  FROM  t_course t1 
+			  WHERE 1=1 
+			   <if test="cTypeId != null">
+			     and t1.typeId = #{cTypeId}
+			  </if>
+			   <if test="teacherId != null">
+			     and t1.tId = #{teacherId}
+			  </if>
+			   <if test="data != null">
+			     AND DATE_FORMAT(t1.sTime, '%Y-%m-%d') = #{data}
+			  </if>
+			  <if test="cid != null">
+			     AND t1.id != #{cid}
+			  </if>
+			  
+    </if>
+  </select>
+</mapper>
