@@ -1,11 +1,11 @@
 package com.company.project.service;
-import com.company.project.model.TCourse;
-
 import java.util.List;
 import java.util.Map;
 
 import com.company.project.core.Service;
 import com.company.project.dto.TCourseDTO;
+import com.company.project.dto.TCourseDetailDTO;
+import com.company.project.model.TCourse;
 
 
 /**
@@ -13,4 +13,6 @@ import com.company.project.dto.TCourseDTO;
  */
 public interface TCourseService extends Service<TCourse> {
     List<TCourseDTO> selectTCourseByCondition(Map<String,Object> map);
+    
+    TCourseDetailDTO selectTCourseDetailByCondition(Map<String,Object> map);
 }

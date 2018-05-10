@@ -24,4 +24,9 @@ public class ResultGenerator {
                 .setCode(ResultCode.FAIL)
                 .setMessage(message);
     }
+    public static Result genServerResult(String message) {
+        return new Result()
+                .setCode(ResultCode.INTERNAL_SERVER_ERROR)
+                .setMessage(message);
+    }
 }

@@ -5,6 +5,9 @@ import com.company.project.model.TCourseType;
 import com.company.project.service.TCourseTypeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +20,9 @@ import java.util.List;
 * Created by tanfan on 2018/05/09.
 */
 @RestController
-@RequestMapping("/t/course/type")
+@RequestMapping("/coursetype")
 public class TCourseTypeController {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource
     private TCourseTypeService tCourseTypeService;
 
@@ -48,9 +52,15 @@ public class TCourseTypeController {
 
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
-        PageHelper.startPage(page, size);
-        List<TCourseType> list = tCourseTypeService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+    	try {
+		        PageHelper.startPage(page, size);
+		        List<TCourseType> list = tCourseTypeService.findAll();
+		       // PageInfo pageInfo = new PageInfo(list);
+		        return ResultGenerator.genSuccessResult(list);
+    	}catch (Exception e) {
+			// TODO: handle exception
+    		logger.error(e.getMessage(), e);
+    		return ResultGenerator.genServerResult("服务器异常");
+		}
     }
 }

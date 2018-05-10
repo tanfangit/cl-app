@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
 <configuration  scan="true" scanPeriod="60 seconds" debug="false">
+    
     <contextName>log</contextName>
     <property name="log.path" value="log" />
     <property name="log.name" value="sxy-app" />
@@ -14,7 +15,7 @@
     <!--输出到文件-->
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/${log.name}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/opt/tanfan/${log.path}/${log.name}.%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>

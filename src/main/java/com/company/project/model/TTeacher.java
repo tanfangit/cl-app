@@ -23,6 +23,9 @@ public class TTeacher {
      * 讲师详细介绍
      */
     private String detail;
+    
+    private Integer typeId;
+    
 
     /**
      * 创建时间
@@ -115,4 +118,13 @@ public class TTeacher {
     public void setCrateTime(Date crateTime) {
         this.crateTime = crateTime;
     }
+
+	public Integer getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+    
 }

@@ -38,7 +38,7 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
         //genCode("输入表名");
-        genCodeByCustomModelName("t_teacher",null);
+        genCodeByCustomModelName("t_article",null);
     }
 
     /**

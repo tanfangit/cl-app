@@ -37,6 +37,39 @@
     <result column="aStatus" jdbcType="INTEGER" property="aStatus" />
     
   </resultMap>
+  <resultMap id="TCourseDetailDTOMap" type="com.company.project.dto.TCourseDetailDTO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="sTime" jdbcType="TIMESTAMP" property="stime" />
+    <result column="cHour" jdbcType="INTEGER" property="chour" />
+    <result column="aCount" jdbcType="INTEGER" property="acount" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="tName" jdbcType="VARCHAR" property="tname" />
+    <result column="tId" jdbcType="INTEGER" property="tid" />
+    <result column="typeId" jdbcType="INTEGER" property="typeid" />
+    <result column="datail" jdbcType="VARCHAR" property="datail" />
+    <result column="aStatus" jdbcType="INTEGER" property="aStatus" />
+   
+    
+     <association property="tTeacher"  javaType="com.company.project.model.TTeacher">
+            <id property="id" column="teacherId" />
+            <result property="name" column="teacherName" jdbcType="VARCHAR"/>
+            <result property="img" column="teacherImg" jdbcType="VARCHAR"/>
+            <result property="detail" column="teacherDetail" jdbcType="VARCHAR"/>
+            <result property="typeId" column="teacherTypeId" jdbcType="INTEGER"/>
+             
+    </association>
+    <collection  property="tCatalog"  ofType="com.company.project.model.TCatalog">
+            <id property="id" column="catalogId" />
+            <result property="name" column="catalogName" jdbcType="VARCHAR"/>
+            <result property="cId" column="cId" jdbcType="INTEGER"/>
+            <result property="sTime" column="catalogSTime" jdbcType="TIMESTAMP"  />
+    </collection>
+  </resultMap>
   <select id="selectTCourseByCondition" parameterType="map" resultMap="TCourseDTOMap">
      <if test="mid != null">
        SELECT t1.*,
@@ -53,9 +86,10 @@
 			  END aStatus
 			  FROM  t_course t1 
 			  LEFT JOIN    t_courseReservation t2 ON  t1.id=t2.cid AND t2.`mId`=#{mid}
-			  
+			 
 			  WHERE 1=1 
-			  <if test="cTypeId != null">
+			  
+			 <if test="cTypeId != null">
 			     and t1.typeId = #{cTypeId}
 			  </if>
 			   <if test="teacherId != null">
@@ -72,7 +106,7 @@
        SELECT t1.*, 0 aStatus
 			  FROM  t_course t1 
 			  WHERE 1=1 
-			   <if test="cTypeId != null">
+			  <if test="cTypeId != null">
 			     and t1.typeId = #{cTypeId}
 			  </if>
 			   <if test="teacherId != null">
@@ -83,6 +117,48 @@
 			  </if>
 			  <if test="cid != null">
 			     AND t1.id != #{cid}
+			  </if>
+			  
+			  
+    </if>
+  </select>
+  
+  <select id="selectTCourseDetailByCondition" parameterType="map" resultMap="TCourseDetailDTOMap">
+  	 <if test="mid != null">
+       SELECT t1.*,
+			  CASE 
+			  -- 已报名
+			  WHEN t2.`id` IS NOT NULL
+			  THEN 
+			       CASE 
+			          WHEN t1.aCount >=minCount
+			          THEN 2
+			          ELSE 1
+			        END   
+			  ELSE 0
+			  END aStatus,
+			  t3.id  catalogId, t3.name catalogName,t3.cId ,t3.sTime  catalogSTime,
+			  t4.id teacherId ,t4.name teacherName,t4.img teacherImg,t4.detail teacherDetail,t4.typeId  teacherTypeId
+			  FROM  t_course t1 
+			  LEFT JOIN    t_courseReservation t2 ON  t1.id=t2.cid AND t2.`mId`=#{mid}
+			   left join    t_catalog t3 on t3.cId =t1.id
+			  left join    t_teacher t4 on t4.id = t1.tId
+			  
+			  WHERE 1=1 
+			  <if test="id != null">
+			     AND t1.id = #{id}
+			  </if>
+    </if>
+    <if test="mid == null">
+       SELECT t1.*, 0 aStatus,
+			  t3.id  catalogId, t3.name catalogName,t3.cId ,t3.sTime  catalogSTime,
+			  t4.id teacherId ,t4.name teacherName,t4.img teacherImg,t4.detail teacherDetail,t4.typeId  teacherTypeId
+			  FROM  t_course t1 
+			  left join    t_catalog t3 on t3.cId =t1.id
+			  left join    t_teacher t4 on t4.id = t1.tId
+			  WHERE 1=1 
+			  <if test="id != null">
+			     AND t1.id = #{id}
 			  </if>
 			  
     </if>

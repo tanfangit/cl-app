@@ -17,7 +17,7 @@ import java.util.List;
 * Created by tanfan on 2018/05/09.
 */
 @RestController
-@RequestMapping("/t/teacher")
+@RequestMapping("/teacher")
 public class TTeacherController {
     @Resource
     private TTeacherService tTeacherService;
@@ -50,7 +50,6 @@ public class TTeacherController {
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
         PageHelper.startPage(page, size);
         List<TTeacher> list = tTeacherService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+        return ResultGenerator.genSuccessResult(list);
     }
 }
