@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.TArticleMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.TArticle">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="robj" jdbcType="INTEGER" property="robj" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="order" jdbcType="INTEGER" property="order" />
+    <result column="r_time" jdbcType="TIMESTAMP" property="rTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="abstract" jdbcType="VARCHAR" property="abstract" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+    <result column="context" jdbcType="LONGVARCHAR" property="context" />
+  </resultMap>
+</mapper>
