@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.TDictMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.TDict">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="DICT_ID" jdbcType="BIGINT" property="dictId" />
+    <result column="KEYY" jdbcType="BIGINT" property="keyy" />
+    <result column="VALUEE" jdbcType="VARCHAR" property="valuee" />
+  </resultMap>
+  <select id= "selectTDictByCondition" parameterType="map" resultMap="BaseResultMap">
+  			select * from t_dict where 1=1
+  			<if test=" FIELD_NAME != null ">
+  			      and  FIELD_NAME = #{FIELD_NAME}
+  			</if>
+  			<if test=" TABLE_NAME != null ">
+  				 and  TABLE_NAME = #{TABLE_NAME}
+  			</if>
+  </select>
+</mapper>

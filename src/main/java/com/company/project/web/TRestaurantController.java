@@ -2,11 +2,11 @@ package com.company.project.web;
 import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
 import com.company.project.dto.TExperienceDTO;
-import com.company.project.dto.TantiqueDTO;
-import com.company.project.model.TExperience;
-import com.company.project.model.TExperienceDetail;
-import com.company.project.service.TExperienceDetailService;
-import com.company.project.service.TExperienceService;
+import com.company.project.dto.TRestaurantDTO;
+import com.company.project.model.TRestaurant;
+import com.company.project.model.TRestaurantDetail;
+import com.company.project.service.TRestaurantDetailService;
+import com.company.project.service.TRestaurantService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -28,40 +28,43 @@ import java.util.Map;
 * Created by tanfan on 2018/05/11.
 */
 @RestController
-@RequestMapping("/experience")
-public class TExperienceController {
+@RequestMapping("/restaurant")
+public class TRestaurantController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource
-    private TExperienceService tExperienceService;
+    private TRestaurantService tRestaurantService;
     @Resource
-    private TExperienceDetailService tExperienceDetailService;
+    private TRestaurantDetailService tRestaurantDetailService;
+
     @PostMapping("/add")
-    public Result add(TExperience tExperience) {
-        tExperienceService.save(tExperience);
+    public Result add(TRestaurant tRestaurant) {
+        tRestaurantService.save(tRestaurant);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/delete")
     public Result delete(@RequestParam Integer id) {
-        tExperienceService.deleteById(id);
+        tRestaurantService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/update")
-    public Result update(TExperience tExperience) {
-        tExperienceService.update(tExperience);
+    public Result update(TRestaurant tRestaurant) {
+        tRestaurantService.update(tRestaurant);
         return ResultGenerator.genSuccessResult();
     }
 
-   /* @PostMapping("/detail")
+    @PostMapping("/detail")
     public Result detail(@RequestParam Integer id) {
-        TExperience tExperience = tExperienceService.findById(id);
-        return ResultGenerator.genSuccessResult(tExperience);
-    }*/
+        TRestaurant tRestaurant = tRestaurantService.findById(id);
+        return ResultGenerator.genSuccessResult(tRestaurant);
+    }
 
     @PostMapping("/index")
     public Result index(HttpServletRequest request) {
-    	try {
+         
+       
+        try {
 	    	 Integer mid = null;
 		   	 if(request.getParameter("mid") !=null) {
 		   		 mid = Integer.parseInt(request.getParameter("mid"));
@@ -86,20 +89,19 @@ public class TExperienceController {
 		   		return ResultGenerator.genParmeterErrorResult();
 		   	}
 	         
-		   	List<TExperienceDTO> list = tExperienceService.selectTExperienceDTOByCondition(map);
+		   	List<TRestaurantDTO> list = tRestaurantService.selectTRestaurantDTOByCondition(map);
 	         
 	        return ResultGenerator.genSuccessResult(list);
-   	} catch (Exception e) {
-   		logger.error(e.getMessage(), e);
-   		return ResultGenerator.genServerResult("服务器异常");
+  	} catch (Exception e) {
+  		logger.error(e.getMessage(), e);
+  		return ResultGenerator.genServerResult("服务器异常");
 	}
-        
+       
     }
-    
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size,HttpServletRequest request) {
     	try {
-    		 Integer mid = null;
+    		Integer mid = null;
 		   	 if(request.getParameter("mid") !=null) {
 		   		 mid = Integer.parseInt(request.getParameter("mid"));
 		   	 }
@@ -107,6 +109,10 @@ public class TExperienceController {
 		   	Integer mtype = null;
 		   	 if(request.getParameter("mtype") !=null) {
 		   		mtype = Integer.parseInt(request.getParameter("mtype"));
+		   	 }
+		   	Integer typeid = null;
+		   	 if(request.getParameter("typeid") !=null) {
+		   		typeid = Integer.parseInt(request.getParameter("typeid"));
 		   	 }
 		   	Map<String,Object> map = new HashMap();
 		   	 
@@ -122,18 +128,17 @@ public class TExperienceController {
 		   	}else {
 		   		return ResultGenerator.genParmeterErrorResult();
 		   	}
-	        PageHelper.startPage(page, size);
-	        List<TExperienceDetail> list = tExperienceDetailService.findAll();
+		   	if(typeid !=null   ) {
+		   		map.put("typeid", typeid);
+		   	} 
 	         
+	        PageHelper.startPage(page, size);
+	        List<TRestaurantDetail> list = tRestaurantDetailService.selectTRestaurantDetailByCondition(map);
+	        
 	        return ResultGenerator.genSuccessResult(list);
     	} catch (Exception e) {
        		logger.error(e.getMessage(), e);
        		return ResultGenerator.genServerResult("服务器异常");
     	}
-    }
-    @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
-        TExperienceDetail tExperienceDetail = tExperienceDetailService.findById(id);
-        return ResultGenerator.genSuccessResult(tExperienceDetail);
     }
 }

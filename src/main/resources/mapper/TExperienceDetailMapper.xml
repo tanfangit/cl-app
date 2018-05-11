@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.company.project.dao.TTeacherMapper">
-  <resultMap id="BaseResultMap" type="com.company.project.model.TTeacher">
+<mapper namespace="com.company.project.dao.TExperienceDetailMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.TExperienceDetail">
     <!--
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
     <result column="img" jdbcType="VARCHAR" property="img" />
-    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="explain" jdbcType="VARCHAR" property="explain" />
     <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
   </resultMap>
-  <select id="selectTTeacherByCondition" parameterType="map" resultMap="BaseResultMap"> 
-  		select * from t_teacher where 1=1
-  		<if test="typeId !=null">
-  		 and typeId = #{typeId}
-  		</if>
-  </select>
 </mapper>

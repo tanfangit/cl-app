@@ -160,9 +160,9 @@ public class TCourseController {
     	
     }
     @PostMapping("/typeList")
-    public Result typeList(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+    public Result typeList() {
     	try {
-		        PageHelper.startPage(page, size);
+		         
 		        List<TCourseType> list = tCourseTypeService.findAll();
 		       // PageInfo pageInfo = new PageInfo(list);
 		        return ResultGenerator.genSuccessResult(list);
@@ -174,10 +174,18 @@ public class TCourseController {
     }
     
     @PostMapping("/teacherList")
-    public Result teacherList(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+    public Result teacherList(HttpServletRequest request) {
     	try {
-	        PageHelper.startPage(page, size);
-	        List<TTeacher> list = tTeacherService.findAll();
+    		 Integer typeId = null;
+	    	 if(request.getParameter("typeId") !=null) {
+	    		 typeId = Integer.parseInt(request.getParameter("typeId"));
+	    	 } 
+	    	 Map<String,Object> map = new HashMap();
+	    	 
+		    	if(typeId !=null) {
+		    		map.put("typeId", typeId);
+		    	}
+	        List<TTeacher> list = tTeacherService.selectTTeacherByCondition(map);
 	        return ResultGenerator.genSuccessResult(list);
     	}catch (Exception e) {
 			// TODO: handle exception

@@ -60,7 +60,7 @@ public class TAntiqueDetail {
     /**
      * 介绍说明
      */
-    private String explain;
+    private String explains;
     
     /**
      * 创建时间
@@ -85,12 +85,12 @@ public class TAntiqueDetail {
 		this.weights = weights;
 	}
 
-	public String getExplain() {
-		return explain;
+	public String getExplains() {
+		return explains;
 	}
 
-	public void setExplain(String explain) {
-		this.explain = explain;
+	public void setExplains(String explains) {
+		this.explains = explains;
 	}
 
 	/**
