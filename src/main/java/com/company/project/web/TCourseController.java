@@ -75,7 +75,10 @@ public class TCourseController {
     			 Integer mid = null;
 		    	 if(request.getParameter("mid") !=null) {
 		    		 mid = Integer.parseInt(request.getParameter("mid"));
-		    	 }
+		    	 }else {
+				   		//参数错误
+				        return ResultGenerator.genParmeterErrorResult();
+				 }
 		    	 Integer cTypeId = null;
 		    	 if(request.getParameter("cTypeId") !=null) {
 		    		 cTypeId = Integer.parseInt(request.getParameter("cTypeId"));
@@ -129,11 +132,17 @@ public class TCourseController {
     			 Integer mid = null;
 		    	 if(request.getParameter("mid") !=null) {
 		    		 mid = Integer.parseInt(request.getParameter("mid"));
-		    	 }
+		    	 }else {
+				   		//参数错误
+				        return ResultGenerator.genParmeterErrorResult();
+				   	}
 		    	 Integer id = null;
 		    	 if(request.getParameter("id") !=null) {
 		    		 id = Integer.parseInt(request.getParameter("id"));
-		    	 }
+		    	 }else {
+				   		//参数错误
+				        return ResultGenerator.genParmeterErrorResult();
+				   	}
 		    	Map<String,Object> map = new HashMap();
 		    	 
 		    	if(mid !=null) {

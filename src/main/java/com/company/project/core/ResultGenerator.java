@@ -24,6 +24,12 @@ public class ResultGenerator {
                 .setCode(ResultCode.FAIL)
                 .setMessage(message);
     }
+    public static Result genParmeterErrorResult() {
+        return new Result()
+                .setCode(ResultCode.PARAMETER_ERROR)
+                .setMessage("参数错误,请检查参数");
+    }
+    
     public static Result genServerResult(String message) {
         return new Result()
                 .setCode(ResultCode.INTERNAL_SERVER_ERROR)
