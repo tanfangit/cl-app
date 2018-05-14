@@ -69,6 +69,9 @@ public class TDictController {
 			   		if(type ==1) {
 			   			map.put("FIELD_NAME", "typeid");
 			   			map.put("TABLE_NAME", "t_restaurant_detail");
+			   		}else if(type ==2) {
+			   			map.put("FIELD_NAME", "typeid");
+			   			map.put("TABLE_NAME", "t_accommodation_detail");
 			   		}
 			   		
 			   	}else {

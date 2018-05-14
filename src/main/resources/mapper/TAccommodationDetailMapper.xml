@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.TAccommodationDetailMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.TAccommodationDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="einfo" jdbcType="VARCHAR" property="einfo" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="typeid" jdbcType="VARCHAR" property="typeid" />
+    <result column="typename" jdbcType="VARCHAR" property="typename" />
+    <result column="facilities" jdbcType="VARCHAR" property="facilities" />
+    <result column="other" jdbcType="VARCHAR" property="other" />
+    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+  </resultMap>
+</mapper>

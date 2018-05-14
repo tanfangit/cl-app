@@ -193,4 +193,51 @@ public class TCourseController {
     		return ResultGenerator.genServerResult("服务器异常");
 		}
     }
+    @PostMapping("/operation")
+    public Result operation(HttpServletRequest request) {
+    	try {
+    		 Integer mid = null;
+	    	 if(request.getParameter("mid") !=null) {
+	    		 mid = Integer.parseInt(request.getParameter("mid"));
+	    	 }else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Integer mtype = null;
+	    	 if(request.getParameter("mtype") !=null) {
+	    		 mtype = Integer.parseInt(request.getParameter("mtype"));
+	    	 } 
+    		 Integer cid = null;
+	    	 if(request.getParameter("cid") !=null) {
+	    		 cid = Integer.parseInt(request.getParameter("cid"));
+	    	 }else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Integer type = null;
+	    	 if(request.getParameter("type") !=null) {
+	    		 type = Integer.parseInt(request.getParameter("type"));
+	    	 }else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Map<String,Integer> map = new HashMap();
+	    	 
+		    	if(type !=null) {
+		    		map.put("type", type);
+		    	}
+		    	if(cid !=null) {
+		    		map.put("cid", cid);
+		    	}
+		    	if(mid !=null) {
+		    		map.put("mid", mid);
+		    	}
+		    	if(mtype !=null) {
+		    		map.put("mtype", mtype);
+		    	}
+	           
+	        return tCourseService.tCourseOperation(map);
+    	}catch (Exception e) {
+			// TODO: handle exception
+    		logger.error(e.getMessage(), e);
+    		return ResultGenerator.genServerResult("服务器异常");
+		}
+    }
 }

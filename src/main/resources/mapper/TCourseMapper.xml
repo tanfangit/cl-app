@@ -18,7 +18,20 @@
     <result column="datail" jdbcType="VARCHAR" property="datail" />
     <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
   </resultMap>
-  
+  <resultMap type="com.company.project.model.CourseReservation" id="CourseReservation">
+   	 <id column="id" jdbcType="INTEGER" property="id" />
+   	 <result column="cId" jdbcType="INTEGER" property="cId" />
+   	 <result column="mId" jdbcType="INTEGER" property="mId" />
+   	 <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+  </resultMap>
+ <!--  <resultMap type="com.company.project.model.CourseReservationDelete" id="CourseReservationDelete">
+ 	 <id column="id" jdbcType="INTEGER" property="id" />
+   	 <result column="cId" jdbcType="INTEGER" property="cid" />
+   	 <result column="mId" jdbcType="INTEGER" property="mid" />
+   	 <result column="day" jdbcType="INTEGER" property="day" />
+   	 <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+   	 <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime" />
+  </resultMap> -->
   <resultMap id="TCourseDTOMap" type="com.company.project.dto.TCourseDTO">
     <!--
       WARNING - @mbg.generated
@@ -163,4 +176,29 @@
 			  
     </if>
   </select>
+  <update id="updateTCourseACountByCondition" parameterType="map">
+    <if test=" ctype == 1 ">
+  	  update t_course set  aCount = aCount + 1 where id =#{cid} and aCount &lt; count
+    </if>
+     <if test=" ctype == 2 ">
+  	  update t_course set  aCount = aCount - 1 where id =#{cid} and aCount &gt; 0
+    </if>
+  </update>
+  <insert id="insertTcourseReservation"  parameterType="map">
+     insert into t_courseReservation (`cId`,`mId`) values(#{cid},#{mid})
+  </insert>
+  <select id="selectCourseReservation" parameterType="map" resultMap="CourseReservation">
+  	select * from t_courseReservation where cId=#{cid} and mId=#{mid}
+  </select>
+  
+  <delete id="deleteTcourseReservation" parameterType="map" >
+         delete from t_courseReservation where cId=#{cid} and mId=#{mid}
+  </delete>
+  <insert id="insertTcourseReservationDelete" parameterType="map">
+  		insert into t_courseReservation_delete(`cId`,`mId`,`day`,`crate_time`)
+  		values (#{cid},#{mid},#{day},#{crateTime})
+  </insert>
+ <!--  <select id="selectCourseReservationDelete" parameterType="map" resultMap="CourseReservationDelete">
+    	select * from t_courseReservation_delete where cId=#{cid} and mId=#{mid}
+  </select> -->
 </mapper>
