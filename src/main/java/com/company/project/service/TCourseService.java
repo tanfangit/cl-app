@@ -6,6 +6,7 @@ import com.company.project.core.Result;
 import com.company.project.core.Service;
 import com.company.project.dto.TCourseDTO;
 import com.company.project.dto.TCourseDetailDTO;
+import com.company.project.dto.TCourseSignUpDTO;
 import com.company.project.model.CourseReservation;
 import com.company.project.model.CourseReservationDelete;
 import com.company.project.model.TCourse;
@@ -26,4 +27,6 @@ public interface TCourseService extends Service<TCourse> {
     CourseReservation selectCourseReservation(Map<String,Integer> map);
     /* 查询取消报名信息  取消报名用*/
     CourseReservationDelete selectCourseReservationDelete(Map<String,Integer> map);
+    
+    List<TCourseSignUpDTO> selectTCourseSignUpDTOByMap(Map<String,Object> map);
 }

@@ -16,6 +16,7 @@ import com.company.project.core.ResultGenerator;
 import com.company.project.dao.TCourseMapper;
 import com.company.project.dto.TCourseDTO;
 import com.company.project.dto.TCourseDetailDTO;
+import com.company.project.dto.TCourseSignUpDTO;
 import com.company.project.model.CourseReservation;
 import com.company.project.model.CourseReservationDelete;
 import com.company.project.model.TCourse;
@@ -90,8 +91,11 @@ public class TCourseServiceImpl extends AbstractService<TCourse> implements TCou
 			// 开始报名 
 			map.put("ctype", 1);
 			if(this.updateTCourseACountByCondition(map)>0) {
-				if(tCourseMapper.insertTcourseReservation(map)>0) {
-					return  ResultGenerator.genSuccessResult();
+				CourseReservation courseReservation = new CourseReservation();
+				courseReservation.setcId(cid);
+				courseReservation.setmId(mid);
+				if(tCourseMapper.insertTcourseReservation(courseReservation)>0) {
+					return  ResultGenerator.genSuccessResult(courseReservation.getId());
 				}else{
 					return ResultGenerator.genFailResult("报名失败,请稍后再试");
 				}
@@ -153,6 +157,12 @@ public class TCourseServiceImpl extends AbstractService<TCourse> implements TCou
 	public int updateTCourseACountByCondition(Map<String, Integer> map) {
 		// TODO Auto-generated method stub
 		return tCourseMapper.updateTCourseACountByCondition(map);
+	}
+
+	@Override
+	public List<TCourseSignUpDTO> selectTCourseSignUpDTOByMap(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tCourseMapper.selectTCourseSignUpDTOByMap(map);
 	}
 
 }

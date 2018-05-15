@@ -3,6 +3,7 @@ import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
 import com.company.project.dto.TCourseDTO;
 import com.company.project.dto.TCourseDetailDTO;
+import com.company.project.dto.TCourseSignUpDTO;
 import com.company.project.model.TCourse;
 import com.company.project.model.TCourseType;
 import com.company.project.model.TTeacher;
@@ -205,7 +206,9 @@ public class TCourseController {
 	    	 Integer mtype = null;
 	    	 if(request.getParameter("mtype") !=null) {
 	    		 mtype = Integer.parseInt(request.getParameter("mtype"));
-	    	 } 
+	    	 } else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
     		 Integer cid = null;
 	    	 if(request.getParameter("cid") !=null) {
 	    		 cid = Integer.parseInt(request.getParameter("cid"));
@@ -238,6 +241,47 @@ public class TCourseController {
 			// TODO: handle exception
     		logger.error(e.getMessage(), e);
     		return ResultGenerator.genServerResult("服务器异常");
+		}
+    }
+    @PostMapping("/signUpList")
+    public Result signUpList(HttpServletRequest request) {
+    	try {
+   		 	Integer mid = null;
+	    	 if(request.getParameter("mid") !=null) {
+	    		 mid = Integer.parseInt(request.getParameter("mid"));
+	    	 }else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Integer mtype = null;
+	    	 if(request.getParameter("mtype") !=null) {
+	    		 mtype = Integer.parseInt(request.getParameter("mtype"));
+	    	 } else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Integer type = null;
+	    	 if(request.getParameter("type") !=null) {
+	    		 type = Integer.parseInt(request.getParameter("type"));
+	    	 } else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	}  
+	    	 Map<String,Object> map = new HashMap();
+	    	 
+		    	 
+		    	if(mid !=null) {
+		    		map.put("mid", mid);
+		    	}
+		    	if(mtype !=null) {
+		    		map.put("mtype", mtype);
+		    	}
+		    	if(type !=null) {
+		    		map.put("type", type);
+		    	}
+		    List<TCourseSignUpDTO> list = tCourseService.selectTCourseSignUpDTOByMap(map);
+	        return ResultGenerator.genSuccessResult(list);
+   	}catch (Exception e) {
+			// TODO: handle exception
+   		logger.error(e.getMessage(), e);
+   		return ResultGenerator.genServerResult("服务器异常");
 		}
     }
 }

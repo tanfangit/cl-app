@@ -83,6 +83,21 @@
             <result property="sTime" column="catalogSTime" jdbcType="TIMESTAMP"  />
     </collection>
   </resultMap>
+ 
+  <resultMap id="TCourseSignUpDTO" type="com.company.project.dto.TCourseSignUpDTO">
+  	 <id column="id" jdbcType="INTEGER" property="id" />
+  	 <result column="cid" jdbcType="INTEGER" property="cid" />
+  	 <result column="img" jdbcType="VARCHAR" property="img" />
+  	 <result column="name" jdbcType="VARCHAR" property="name" />
+  	 <result column="stime" jdbcType="TIMESTAMP" property="stime" />
+  	 <result column="chour" jdbcType="INTEGER" property="chour" />
+  	 <result column="acount" jdbcType="INTEGER" property="acount" />
+  	 <result column="count" jdbcType="INTEGER" property="count" />
+  	 <result column="tname" jdbcType="VARCHAR" property="tname" />
+  	 <result column="rstatus" jdbcType="INTEGER" property="rstatus" />
+  	 <result column="astatus" jdbcType="INTEGER" property="astatus" />
+  	 <result column="cratetime" jdbcType="TIMESTAMP" property="cratetime" />
+  </resultMap>
   <select id="selectTCourseByCondition" parameterType="map" resultMap="TCourseDTOMap">
      <if test="mid != null">
        SELECT t1.*,
@@ -184,8 +199,8 @@
   	  update t_course set  aCount = aCount - 1 where id =#{cid} and aCount &gt; 0
     </if>
   </update>
-  <insert id="insertTcourseReservation"  parameterType="map">
-     insert into t_courseReservation (`cId`,`mId`) values(#{cid},#{mid})
+  <insert id="insertTcourseReservation"  parameterType="com.company.project.model.CourseReservation" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+     insert into t_courseReservation (`cId`,`mId`) values(#{cId},#{mId})
   </insert>
   <select id="selectCourseReservation" parameterType="map" resultMap="CourseReservation">
   	select * from t_courseReservation where cId=#{cid} and mId=#{mid}
@@ -201,4 +216,43 @@
  <!--  <select id="selectCourseReservationDelete" parameterType="map" resultMap="CourseReservationDelete">
     	select * from t_courseReservation_delete where cId=#{cid} and mId=#{mid}
   </select> -->
+  <select id="selectTCourseSignUpDTOByMap" parameterType="map" resultMap="TCourseSignUpDTO">
+  		
+
+    SELECT t1.id,t1.cId cid,t1.crate_time cratetime,
+    t2.`img`,t2.name,t2.sTime stime, t2.cHour chour,t2.aCount acount,t2.`count`,t2.`tName` tname,
+    CASE
+	    WHEN t3.id IS NOT NULL 
+	    THEN 
+	         CASE WHEN t3.rtypeids IS NOT NULL
+	              THEN 1
+	              ELSE 2
+	          END    
+	    ELSE 2
+    END rstatus,
+    CASE
+	    WHEN t3.id IS NOT NULL 
+	    THEN 
+	         CASE WHEN t4.counts>0
+	              THEN 1
+	              ELSE 2
+	              END
+	    ELSE 2
+    END astatus
+    FROM t_courseReservation  t1
+    inner JOIN t_course t2 ON t1.`cId`=t2.`id`
+    LEFT JOIN t_otherReservations t3 ON t1.`id`=t3.`cId`    
+    LEFT JOIN (SELECT oid,COUNT(*) counts FROM t_otherReservations_accommodation GROUP BY oid) t4 ON t3.id=t4.oid
+    where 1=1 
+    and t1.mId =#{mid}
+    <if test="type == 1">
+    	and t2.sTime &gt; now()
+    </if>
+     <if test="type == 2">
+          and  t2.sTime &lt; now() and t2.eTime &gt; now()  
+    </if>
+    <if test="type == 3">
+    	and t2.eTime &lt;  now()     
+    </if>
+  </select>
 </mapper>

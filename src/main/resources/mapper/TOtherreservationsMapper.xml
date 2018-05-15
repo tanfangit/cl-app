@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.TOtherreservationsMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.TOtherreservations">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mId" jdbcType="INTEGER" property="mid" />
+    <result column="atype" jdbcType="INTEGER" property="atype" />
+    <result column="eids" jdbcType="VARCHAR" property="eids" />
+    <result column="rtypeids" jdbcType="VARCHAR" property="rtypeids" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="uphone" jdbcType="VARCHAR" property="uphone" />
+    <result column="usex" jdbcType="INTEGER" property="usex" />
+    <result column="health" jdbcType="VARCHAR" property="health" />
+    <result column="explains" jdbcType="VARCHAR" property="explains" />
+    <result column="dates" jdbcType="VARCHAR" property="dates" />
+    <result column="sdate" jdbcType="TIMESTAMP" property="sdate" />
+    <result column="edate" jdbcType="TIMESTAMP" property="edate" />
+    <result column="days" jdbcType="INTEGER" property="days" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+  </resultMap>
+  <insert id="insertTotherReservations" parameterType="com.company.project.dto.TOtherreservationsDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+  	   insert into t_otherReservations
+  	   <trim prefix="(" suffix=")" suffixOverrides="," >
+  	   		mId,uname,uphone,usex,dates,sdate,edate,days,
+  	   		 <if test="cid != null" >
+       				 cId,
+     		 </if>
+     		  <if test="atype != null" >
+       				 atype,
+     		 </if>
+     		 <if test="eids != null" >
+       				 eids,
+     		 </if>
+     		 <if test="rtypeids != null" >
+       				 rtypeids,
+     		 </if>
+     		 <if test="health != null" >
+       				 health,
+     		 </if>
+     		 <if test="explains != null" >
+       				 explains,
+     		 </if>
+     		 
+     		 
+  	   </trim>
+  	   <trim prefix="values (" suffix=")" suffixOverrides="," >
+  	       #{mid},#{unames},#{uphone},#{usex},#{dates},#{sdate},#{edate},#{days},
+	  	   <if test="cid != null" >
+	        #{cid,jdbcType=INTEGER},
+	      </if>
+	       <if test="atype != null" >
+       				#{atype,jdbcType=VARCHAR},  
+     		</if>
+     		 <if test="eids != null" >
+       				#{eids,jdbcType=VARCHAR},
+     		 </if>
+     		 <if test="rtypeids != null" >
+       				 #{rtypeids,jdbcType=VARCHAR},
+     		 </if>
+     		 <if test="health != null" >
+       				#{health,jdbcType=VARCHAR},
+     		 </if>
+     		 <if test="explains != null" >
+       				#{explains,jdbcType=VARCHAR},
+     		 </if>
+  	    </trim>
+  </insert>
+  
+  <insert id="insertTotherReservationsAccommodation" parameterType="com.company.project.model.TOtherreservationsAccommodation" >
+  		insert into t_otherReservations_accommodation(`oid`,`typename`,`typeid`,`count`,`rcount` )
+  		values (#{oid},#{typename},#{typeid},#{count},#{rcount})
+  </insert>
+  <delete id="deleteTotherReservationsAccommodationByOid" parameterType="int">
+  		delete from t_otherReservations_accommodation where oid=#{oid}
+  </delete>
+</mapper>
