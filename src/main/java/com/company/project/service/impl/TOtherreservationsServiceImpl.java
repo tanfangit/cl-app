@@ -12,6 +12,9 @@ import com.company.project.core.ResultGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +36,26 @@ public class TOtherreservationsServiceImpl extends AbstractService<TOtherreserva
 		/**
 		 * 
 		 */
+		if(tOtherreservationsDTO.getId()!=null) {
+			// 要加 预约前 3天不能修改 取消
+			Map map = new HashMap();
+			map.put("id", tOtherreservationsDTO.getId());
+			List<TOtherreservationsDTO> list = tOtherreservationsMapper.selectTOtherreservationsDTOByMap(map);
+			if(list.size()>0) {
+				Date sdate = list.get(0).getSdate();
+				Calendar date = Calendar.getInstance();
+				date.setTime(sdate);
+				date.set(Calendar.DATE, date.get(Calendar.DATE) - 3);
+				if(date.getTime().before(new Date())) {
+					return	ResultGenerator.genFailResult("预约开始前3天不能修改");	
+				}
+			}else {
+				return ResultGenerator.genFailResult("请检查参数,修改其它预约失败");	
+			}
+			
+			tOtherreservationsMapper.deleteByPrimaryKey(tOtherreservationsDTO.getId());
+			tOtherreservationsMapper.deleteTotherReservationsAccommodationByOid(tOtherreservationsDTO.getId());
+		}
 		tOtherreservationsMapper.insertTotherReservations(tOtherreservationsDTO);
 		for(TOtherreservationsAccommodation tOtherreservationsAccommodation : tOtherreservationsDTO.getAccommodations()) {
 			tOtherreservationsAccommodation.setOid(tOtherreservationsDTO.getId());
@@ -44,9 +67,33 @@ public class TOtherreservationsServiceImpl extends AbstractService<TOtherreserva
 	@Override
 	public Result cancel(Integer id) {
 		// TODO Auto-generated method stub
+		// 要加 预约前 3天不能修改 取消
+		
+			// 要加 预约前 3天不能修改 取消
+			Map map = new HashMap();
+			map.put("id", id);
+			List<TOtherreservationsDTO> list = tOtherreservationsMapper.selectTOtherreservationsDTOByMap(map);
+			if(list.size()>0) {
+				Date sdate = list.get(0).getSdate();
+				Calendar date = Calendar.getInstance();
+				date.setTime(sdate);
+				date.set(Calendar.DATE, date.get(Calendar.DATE) - 3);
+				if(date.getTime().before(new Date())) {
+					return ResultGenerator.genFailResult("预约开始前3天不能修改");	
+				}
+			}else {
+				return ResultGenerator.genFailResult("请检查参数,修改其它预约失败");	
+			}
+		
 		tOtherreservationsMapper.deleteByPrimaryKey(id);
 		tOtherreservationsMapper.deleteTotherReservationsAccommodationByOid(id);
 		return ResultGenerator.genSuccessResult();
+	}
+
+	@Override
+	public List<TOtherreservationsDTO> selectTOtherreservationsDTOByMap(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tOtherreservationsMapper.selectTOtherreservationsDTOByMap(map);
 	}
 
 }

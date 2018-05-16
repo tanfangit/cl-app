@@ -1,5 +1,8 @@
 package com.company.project.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.company.project.core.Mapper;
 import com.company.project.dto.TOtherreservationsDTO;
 import com.company.project.model.TOtherreservations;
@@ -12,4 +15,7 @@ public interface TOtherreservationsMapper extends Mapper<TOtherreservations> {
 	int insertTotherReservationsAccommodation(TOtherreservationsAccommodation tOtherreservationsAccommodation);
 	
 	int deleteTotherReservationsAccommodationByOid(Integer oid);
+	
+	List<TOtherreservationsDTO> selectTOtherreservationsDTOByMap(Map<String,Object> map);
+	
 }

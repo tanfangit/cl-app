@@ -18,4 +18,6 @@ public interface TOtherreservationsService extends Service<TOtherreservations> {
 	 Result signUp(TOtherreservationsDTO tOtherreservationsDTO);
 	 /*其它预约取消报名*/
 	 Result cancel(Integer id);
+	 
+	 List<TOtherreservationsDTO> selectTOtherreservationsDTOByMap(Map<String,Object> map);
 }

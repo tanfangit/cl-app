@@ -3,6 +3,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
+import com.company.project.dto.TCourseSignUpDTO;
 import com.company.project.dto.TOtherreservationsDTO;
 import com.company.project.model.TOtherreservations;
 import com.company.project.model.TOtherreservationsAccommodation;
@@ -24,7 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * Created by tanfan on 2018/05/15.
@@ -123,5 +126,95 @@ public class TOtherreservationsController {
          
         return tOtherreservationsService.cancel(id);
     }
-    
+    @PostMapping("/signUpList")
+    public Result signUpList(HttpServletRequest request) {
+    	try {
+   		 	Integer mid = null;
+	    	 if(request.getParameter("mid") !=null) {
+	    		 mid = Integer.parseInt(request.getParameter("mid"));
+	    	 }else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Integer mtype = null;
+	    	 if(request.getParameter("mtype") !=null) {
+	    		 mtype = Integer.parseInt(request.getParameter("mtype"));
+	    	 } else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Integer type = null;
+	    	 if(request.getParameter("type") !=null) {
+	    		 type = Integer.parseInt(request.getParameter("type"));
+	    	 } else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	}  
+	    	 Map<String,Object> map = new HashMap();
+	    	 
+		    	 
+		    	if(mid !=null) {
+		    		map.put("mid", mid);
+		    	}
+		    	if(mtype !=null) {
+		    		map.put("mtype", mtype);
+		    	}
+		    	if(type !=null) {
+		    		map.put("type", type);
+		    	}
+		    List<TOtherreservationsDTO> list = tOtherreservationsService.selectTOtherreservationsDTOByMap(map);
+	        return ResultGenerator.genSuccessResult(list);
+   	}catch (Exception e) {
+			// TODO: handle exception
+   		logger.error(e.getMessage(), e);
+   		return ResultGenerator.genServerResult("服务器异常");
+		}
+    }
+    @PostMapping("/signUpDetail")
+    public Result signUpDetail(HttpServletRequest request) {
+    	try {
+   		 	Integer mid = null;
+	    	 if(request.getParameter("mid") !=null) {
+	    		 mid = Integer.parseInt(request.getParameter("mid"));
+	    	 }else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Integer mtype = null;
+	    	 if(request.getParameter("mtype") !=null) {
+	    		 mtype = Integer.parseInt(request.getParameter("mtype"));
+	    	 } else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Integer type = null;
+	    	 if(request.getParameter("type") !=null) {
+	    		 type = Integer.parseInt(request.getParameter("type"));
+	    	 } else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Integer id = null;
+	    	 if(request.getParameter("id") !=null) {
+	    		 id = Integer.parseInt(request.getParameter("id"));
+	    	 } else {
+			   		return ResultGenerator.genParmeterErrorResult();
+			   	} 
+	    	 Map<String,Object> map = new HashMap();
+	    	 
+		    	 
+		    	if(mid !=null) {
+		    		map.put("mid", mid);
+		    	}
+		    	if(mtype !=null) {
+		    		map.put("mtype", mtype);
+		    	}
+		    	if(type !=null) {
+		    		map.put("type", type);
+		    	}
+		    	if(id !=null) {
+		    		map.put("id", id);
+		    	}
+		    List<TOtherreservationsDTO> list = tOtherreservationsService.selectTOtherreservationsDTOByMap(map);
+	        return ResultGenerator.genSuccessResult(list.get(0));
+   	}catch (Exception e) {
+			// TODO: handle exception
+   		logger.error(e.getMessage(), e);
+   		return ResultGenerator.genServerResult("服务器异常");
+		}
+    }
 }

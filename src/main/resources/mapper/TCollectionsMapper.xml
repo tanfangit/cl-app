@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.TCollectionsMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.TCollections">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mid" jdbcType="INTEGER" property="mid" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+  </resultMap>
+  <resultMap type="com.company.project.dto.TCourseCollectionsDTO" id="TCourseCollectionsDTO">
+	  	<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="img" jdbcType="VARCHAR" property="img" />
+	    <result column="sTime" jdbcType="TIMESTAMP" property="stime" />
+	    <result column="cHour" jdbcType="INTEGER" property="chour" />
+	    <result column="aCount" jdbcType="INTEGER" property="acount" />
+	    <result column="count" jdbcType="INTEGER" property="count" />
+	    <result column="tName" jdbcType="VARCHAR" property="tname" />
+	    <result column="tId" jdbcType="INTEGER" property="tid" />
+	    <result column="typeId" jdbcType="INTEGER" property="typeid" />
+	    <result column="datail" jdbcType="VARCHAR" property="datail" />
+	    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+	    <result column="cid" jdbcType="INTEGER" property="cid" />
+	    <result column="status" jdbcType="INTEGER" property="status" />
+	    <result column="cTime" jdbcType="TIMESTAMP" property="cTime" />
+  </resultMap>
+  
+  <select id="selectTCourseCollectionsDTOByMap" parameterType="map" resultMap="TCourseCollectionsDTO">
+      select t2.*,t1.id cid,t1.crate_time cTime,
+      case when t2.eTime &gt; now()
+           then 1
+           when  t2.sTime &gt; now()
+           then 2
+           else 3
+      end  status    
+       from  t_collections t1 
+      inner join t_course t2 on t1.cid =t2.id 
+      where t1.type = 1
+      and t1.mid =#{mid}
+  </select>
+</mapper>

@@ -10,7 +10,7 @@
     <result column="atype" jdbcType="INTEGER" property="atype" />
     <result column="eids" jdbcType="VARCHAR" property="eids" />
     <result column="rtypeids" jdbcType="VARCHAR" property="rtypeids" />
-    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="uname" jdbcType="VARCHAR" property="unames" />
     <result column="uphone" jdbcType="VARCHAR" property="uphone" />
     <result column="usex" jdbcType="INTEGER" property="usex" />
     <result column="health" jdbcType="VARCHAR" property="health" />
@@ -21,6 +21,16 @@
     <result column="days" jdbcType="INTEGER" property="days" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+  </resultMap>
+  <resultMap type="com.company.project.dto.TOtherreservationsDTO" id="TOtherreservationsDTO" extends="BaseResultMap">
+  			<collection  property="accommodations"  ofType="com.company.project.model.TOtherreservationsAccommodation">
+		            <id property="id" column="id2" />
+		            <result property="oid" column="oid" jdbcType="INTEGER"/>
+		            <result property="typename" column="typename" jdbcType="VARCHAR"/>
+		          	<result property="typeid" column="typeid" jdbcType="INTEGER"/>
+		            <result property="count" column="count" jdbcType="INTEGER"/>
+		            <result property="rcount" column="rcount" jdbcType="INTEGER"/>  
+   			 </collection>
   </resultMap>
   <insert id="insertTotherReservations" parameterType="com.company.project.dto.TOtherreservationsDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
   	   insert into t_otherReservations
@@ -77,4 +87,25 @@
   <delete id="deleteTotherReservationsAccommodationByOid" parameterType="int">
   		delete from t_otherReservations_accommodation where oid=#{oid}
   </delete>
+  <select id="selectTOtherreservationsDTOByMap" parameterType="map" resultMap="TOtherreservationsDTO">
+  			SELECT t1.*,t2.`id` id2 ,t2.`oid`,t2.`typename`,t2.typeid,t2.`count`,t2.`rcount` FROM t_otherReservations t1
+			LEFT JOIN t_otherReservations_accommodation t2 ON t1.id=t2.oid
+			where 1=1 
+			<if test="mid!=null">
+				and t1.mId=#{mid}
+			</if>
+			
+			<if test="id!=null">
+				and t1.id =#{id}
+			</if>
+			<if test="type==1">
+				and t1.sdate &gt; now()
+			</if>
+			<if test="type==2">
+				 and  t1.sdate &lt; now() and t1.edate &gt; now()  
+			</if>
+			<if test="type==3">
+				and  t1.edate &lt;  now()   
+			</if>
+  </select>
 </mapper>

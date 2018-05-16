@@ -38,7 +38,7 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
         //genCode("输入表名");
-        genCodeByCustomModelName("t_otherReservations",null);
+        genCodeByCustomModelName("t_collections",null);
     }
 
     /**
