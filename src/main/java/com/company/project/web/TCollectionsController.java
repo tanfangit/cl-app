@@ -1,7 +1,11 @@
 package com.company.project.web;
 import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
+import com.company.project.dto.TAccommodationCollectionsDTO;
 import com.company.project.dto.TCourseCollectionsDTO;
+import com.company.project.dto.TExperienceCollectionsDTO;
+import com.company.project.dto.TRestauratCollectionsDTO;
+import com.company.project.dto.TantiqueCollectionsDTO;
 import com.company.project.model.TCollections;
 import com.company.project.service.TCollectionsService;
 import com.company.project.util.StringUtils;
@@ -79,6 +83,18 @@ public class TCollectionsController {
 	    	PageHelper.startPage(page, size);
 	    	if(type == 1) {
 	    		 List<TCourseCollectionsDTO> list = tCollectionsService.selectTCourseCollectionsDTOByMap(map);
+	    		 return ResultGenerator.genSuccessResult(list);
+	    	}else if(type == 2){
+	    		List<TantiqueCollectionsDTO> list = tCollectionsService.selectTantiqueCollectionsDTOByMap(map);
+	    		 return ResultGenerator.genSuccessResult(list);
+	    	}else if(type == 3){
+	    		List<TExperienceCollectionsDTO> list = tCollectionsService.selectTExperienceCollectionsDTOByMap(map);
+	    		 return ResultGenerator.genSuccessResult(list);
+	    	}else if(type == 4){
+	    		List<TRestauratCollectionsDTO> list = tCollectionsService.selectTRestauratCollectionsDTOByMap(map);
+	    		 return ResultGenerator.genSuccessResult(list);
+	    	}else if(type == 5){
+	    		List<TAccommodationCollectionsDTO> list = tCollectionsService.selectTAccommodationCollectionsDTOByMap(map);
 	    		 return ResultGenerator.genSuccessResult(list);
 	    	}else {
 	    		 return ResultGenerator.genSuccessResult();

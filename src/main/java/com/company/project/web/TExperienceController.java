@@ -123,7 +123,7 @@ public class TExperienceController {
 		   		return ResultGenerator.genParmeterErrorResult();
 		   	}
 	        PageHelper.startPage(page, size);
-	        List<TExperienceDetail> list = tExperienceDetailService.findAll();
+	        List<TExperienceDetail> list = tExperienceDetailService.selectTExperienceDetailByMap(map);
 	         
 	        return ResultGenerator.genSuccessResult(list);
     	} catch (Exception e) {
@@ -133,7 +133,9 @@ public class TExperienceController {
     }
     @PostMapping("/detail")
     public Result detail(@RequestParam Integer id) {
-        TExperienceDetail tExperienceDetail = tExperienceDetailService.findById(id);
-        return ResultGenerator.genSuccessResult(tExperienceDetail);
+    	Map<String,Object> map = new HashMap();
+    	map.put("id", id);
+    	List<TExperienceDetail> list = tExperienceDetailService.selectTExperienceDetailByMap(map);
+        return ResultGenerator.genSuccessResult(list.get(0));
     }
 }

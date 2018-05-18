@@ -7,6 +7,9 @@ import com.company.project.core.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 
@@ -18,5 +21,11 @@ import javax.annotation.Resource;
 public class TExperienceDetailServiceImpl extends AbstractService<TExperienceDetail> implements TExperienceDetailService {
     @Resource
     private TExperienceDetailMapper tExperienceDetailMapper;
+
+	@Override
+	public List<TExperienceDetail> selectTExperienceDetailByMap(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tExperienceDetailMapper.selectTExperienceDetailByMap(map);
+	}
 
 }

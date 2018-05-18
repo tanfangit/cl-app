@@ -11,5 +11,15 @@
     <result column="img" jdbcType="VARCHAR" property="img" />
     <result column="explain" jdbcType="VARCHAR" property="explain" />
     <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+     <result column="count" jdbcType="INTEGER" property="count" />
   </resultMap>
+  <select id="selectTExperienceDetailByMap" parameterType="map" resultMap="BaseResultMap">
+  	SELECT t1.* ,(SELECT COUNT(1) FROM t_otherreservations WHERE LOCATE(CONCAT(',',t1.`id`,','),eids)>0 ) COUNT
+
+	FROM `t_experience_detail` t1 where 1=1
+	<if test="id != null ">
+	   and t1.id = #{id}
+	</if>
+  
+  </select>
 </mapper>

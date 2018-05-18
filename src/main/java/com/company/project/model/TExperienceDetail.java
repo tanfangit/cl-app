@@ -28,6 +28,10 @@ public class TExperienceDetail {
      * 介绍说明
      */
     private String explains;
+    /**
+     * 报名人数
+     */
+    private int count;
 
     /**
      * 创建时间
@@ -138,4 +142,13 @@ public class TExperienceDetail {
     public void setCrateTime(Date crateTime) {
         this.crateTime = crateTime;
     }
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+    
 }

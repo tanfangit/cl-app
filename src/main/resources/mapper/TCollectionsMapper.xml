@@ -28,7 +28,62 @@
 	    <result column="status" jdbcType="INTEGER" property="status" />
 	    <result column="cTime" jdbcType="TIMESTAMP" property="cTime" />
   </resultMap>
+  <resultMap type="com.company.project.dto.TantiqueCollectionsDTO" id="TantiqueCollectionsDTO">
+  		<id column="id" jdbcType="INTEGER" property="id" /> 
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="material" jdbcType="VARCHAR" property="material" />
+	    <result column="typeid" jdbcType="INTEGER" property="typeid" />
+	    <result column="source" jdbcType="VARCHAR" property="source" />
+	    <result column="year" jdbcType="VARCHAR" property="year" />
+	    <result column="number" jdbcType="VARCHAR" property="number" />
+	    <result column="img" jdbcType="VARCHAR" property="img" /> 
+	    <result column="typename" jdbcType="VARCHAR" property="typename" />
+	    <result column="sourcename" jdbcType="VARCHAR" property="sourcename" /> 
+	    <result column="sizes" jdbcType="VARCHAR" property="sizes" /> 
+	    <result column="weights" jdbcType="VARCHAR" property="weights" /> 
+	    <result column="explain" jdbcType="VARCHAR" property="explain" /> 
   
+  		 <result column="cid" jdbcType="INTEGER" property="cid" />
+	    
+	    <result column="cTime" jdbcType="TIMESTAMP" property="cTime" />
+  </resultMap>
+  <resultMap type="com.company.project.dto.TExperienceCollectionsDTO" id="TExperienceCollectionsDTO">
+  		 <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="time" jdbcType="VARCHAR" property="time" />
+	    <result column="img" jdbcType="VARCHAR" property="img" />
+	    <result column="explain" jdbcType="VARCHAR" property="explain" />
+	    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+    	 <result column="count" jdbcType="INTEGER" property="count" />
+    	 
+    	<result column="cid" jdbcType="INTEGER" property="cid" />
+	    <result column="cTime" jdbcType="TIMESTAMP" property="cTime" />
+  </resultMap>
+  <resultMap type="com.company.project.dto.TRestauratCollectionsDTO" id="TRestauratCollectionsDTO">
+	  	<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="img" jdbcType="VARCHAR" property="img" />
+	    <result column="typeid" jdbcType="VARCHAR" property="typeid" />
+	    <result column="typename" jdbcType="VARCHAR" property="typename" />
+	    <result column="context" jdbcType="VARCHAR" property="context" />
+	    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+	    
+	    <result column="cid" jdbcType="INTEGER" property="cid" />
+		<result column="cTime" jdbcType="TIMESTAMP" property="cTime" />
+  
+  </resultMap>
+  <resultMap type="com.company.project.dto.TAccommodationCollectionsDTO" id="TAccommodationCollectionsDTO">
+  		 <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="einfo" jdbcType="VARCHAR" property="einfo" />
+	    <result column="img" jdbcType="VARCHAR" property="img" />
+	    <result column="typeid" jdbcType="VARCHAR" property="typeid" />
+	    <result column="typename" jdbcType="VARCHAR" property="typename" />
+	    <result column="facilities" jdbcType="VARCHAR" property="facilities" />
+	    <result column="other" jdbcType="VARCHAR" property="other" />
+	    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+	     <result column="cid" jdbcType="INTEGER" property="cid" />
+		<result column="cTime" jdbcType="TIMESTAMP" property="cTime" />
+  </resultMap>
   <select id="selectTCourseCollectionsDTOByMap" parameterType="map" resultMap="TCourseCollectionsDTO">
       select t2.*,t1.id cid,t1.crate_time cTime,
       case when t2.eTime &gt; now()
@@ -41,5 +96,35 @@
       inner join t_course t2 on t1.cid =t2.id 
       where t1.type = 1
       and t1.mid =#{mid}
+  </select>
+  <select id="selectTantiqueCollectionsDTOByMap" parameterType="map" resultMap="TantiqueCollectionsDTO">
+       select t2.*,t1.id cid,t1.crate_time cTime,
+       t3.name typename,t4.name sourcename
+        from t_collections t1 
+      inner join t_antique_detail t2 on t1.cid =t2.id 
+      left join t_antique_type t3 on t2.typeid = t3.id
+  	left join t_antique_source t4 on t2.sid = t4.id
+      where t1.type = 2
+      and t1.mid =#{mid}
+  </select>
+  <select id="selectTExperienceCollectionsDTOByMap" parameterType="map" resultMap="TExperienceCollectionsDTO">
+  			select t2.*,(SELECT COUNT(1) FROM t_otherreservations WHERE LOCATE(CONCAT(',',t2.`id`,','),eids)>0 ) COUNT,
+  			t1.id cid,t1.crate_time cTime
+  			 from t_collections t1 
+  		   inner join `t_experience_detail` t2  on t1.cid =t2.id 
+  		    where t1.type = 3
+     		 and t1.mid =#{mid}
+  </select>
+  <select id="selectTRestauratCollectionsDTOByMap" parameterType="map" resultMap="TRestauratCollectionsDTO">
+  		select t2.*,t1.id cid,t1.crate_time cTime from t_collections t1 
+  	    inner join `t_restaurant_detail` t2  on t1.cid =t2.id 
+  		where t1.type = 4
+        and t1.mid =#{mid}
+  </select>
+  <select id="selectTAccommodationCollectionsDTOByMap" parameterType="map" resultMap="TAccommodationCollectionsDTO">
+ 	 select t2.*,t1.id cid,t1.crate_time cTime from t_collections t1 
+  	    inner join `t_accommodation_detail` t2  on t1.cid =t2.id 
+  		where t1.type = 5
+        and t1.mid =#{mid}
   </select>
 </mapper>
