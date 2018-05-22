@@ -1,5 +1,6 @@
 package com.company.project.util;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
@@ -31,5 +32,11 @@ public class DateUtil {
 		}
 		
 		
+	}
+	public static Date add_minute(Date date,Integer minute) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.MINUTE, minute);
+		return c.getTime();
 	}
 }

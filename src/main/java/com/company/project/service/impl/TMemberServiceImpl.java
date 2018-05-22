@@ -7,6 +7,8 @@ import com.company.project.core.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 
@@ -18,5 +20,23 @@ import javax.annotation.Resource;
 public class TMemberServiceImpl extends AbstractService<TMember> implements TMemberService {
     @Resource
     private TMemberMapper tMemberMapper;
+
+	@Override
+	public int insertTMemberByTMember(TMember tMember) {
+		// TODO Auto-generated method stub
+		return tMemberMapper.insertTMemberByTMember(tMember);
+	}
+
+	@Override
+	public int updateTMemberByTMember(TMember tMember) {
+		// TODO Auto-generated method stub
+		return tMemberMapper.updateTMemberByTMember(tMember);
+	}
+
+	@Override
+	public TMember selectTMemberByMap(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tMemberMapper.selectTMemberByMap(map);
+	}
 
 }

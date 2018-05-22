@@ -29,4 +29,137 @@
     <result column="openUserId" jdbcType="INTEGER" property="openuserid" />
     <result column="openUserName" jdbcType="VARCHAR" property="openusername" />
   </resultMap>
+  <insert id="insertTMemberByTMember" parameterType="com.company.project.model.TMember">
+  		insert into t_member
+  	   <trim prefix="(" suffix=")" suffixOverrides="," >
+  	   		 
+  	   		 <if test="membername != null" >
+       				 memberName,
+     		 </if>
+     		  <if test="password != null" >
+       				 password,
+     		 </if>
+     		 <if test="phone != null" >
+       				 phone,
+     		 </if>
+     		 <if test="membernumber != null" >
+       				 memberNumber,
+     		 </if>
+     		 <if test="refereename != null" >
+       				 refereeName,
+     		 </if>
+     		 <if test="refereephone != null" >
+       				 refereePhone,
+     		 </if>
+     		  <if test="istemp != null" >
+       				 isTemp,
+     		 </if>
+     		  <if test="opentype != null" >
+       				 openType,
+     		 </if>
+     		  <if test="openid != null" >
+       				 openid,
+     		 </if>
+     		 <if test="wxaccount != null" >
+       				 wxAccount,
+     		 </if>
+     		  <if test="acatar != null" >
+       				 acatar,
+     		 </if>
+     		  <if test="captcha != null" >
+       				 captcha,
+     		 </if>
+     		  <if test="idcode != null" >
+       				 idCode,
+     		 </if>
+     		 <if test="captchaTime != null" >
+       				 captchaTime,
+     		 </if>
+     		 
+     		 
+  	   </trim>
+  	   <trim prefix="values (" suffix=")" suffixOverrides="," >
+  	       <if test="membername != null" >
+       				 #{membername},
+     		 </if>
+     		  <if test="password != null" >
+       				 #{password },
+     		 </if>
+     		 <if test="phone != null" >
+       				 #{phone},
+     		 </if>
+     		 <if test="membernumber != null" >
+       				  #{membernumber},
+     		 </if>
+     		 <if test="refereename != null" >
+       				#{refereename},
+     		 </if>
+     		 <if test="refereephone != null" >
+       				 #{refereephone},
+     		 </if>
+     		  <if test="istemp != null" >
+       				 #{istemp},
+     		 </if>
+     		  <if test="opentype != null" >
+       				 #{opentype},
+     		 </if>
+     		  <if test="openid != null" >
+       				 #{openid},
+     		 </if>
+     		 <if test="wxaccount != null" >
+       				 #{wxaccount},
+     		 </if>
+     		  <if test="acatar != null" >
+       				 #{acatar},
+     		 </if>
+     		  <if test="captcha != null" >
+       				 #{captcha},
+     		 </if>
+     		  <if test="idcode != null" >
+       				  #{idcode},
+     		 </if>
+     		  <if test="captchaTime != null" >
+       				  #{captchaTime},
+     		 </if>
+  	    </trim>
+  </insert>
+  <update id="updateTMemberByTMember"  parameterType="com.company.project.model.TMember">
+	  	UPDATE t_member
+	 <trim prefix="set" suffixOverrides=",">
+	  <if test="password!=null">password=#{password},</if>
+	  <if test="phone!=null">phone=#{phone},</if>
+	  <if test="membername!=null">memberName=#{membername},</if>
+	  <if test="refereename!=null">refereeName=#{refereename},</if>
+	  <if test="refereephone!=null">refereePhone=#{refereephone},</if>
+	  <if test="istemp!=null">isTemp=#{istemp},</if>
+	  <if test="opentype!=null">openType=#{opentype},</if>
+	  <if test="openid!=null">openid=#{openid},</if>
+	   <if test="wxaccount!=null">wxAccount=#{wxaccount},</if>
+	    <if test="acatar!=null">acatar=#{acatar},</if>
+	     <if test="idcode!=null">idCode=#{idcode},</if>
+	     <if test="captcha!=null">captcha=#{captcha},</if>
+	     <if test="captchaTime!=null">captchaTime=#{captchaTime},</if>
+	     
+	 </trim>
+	 WHERE 1=1 
+	 <if test=" id !=null">
+	   and  id=#{id}
+	 </if>
+	<if test=" phone !=null">
+	   and  phone=#{phone}
+	 </if>
+ </update>
+  <select id="selectTMemberByMap" parameterType="map" resultMap="BaseResultMap">
+  	select * from t_member where 1=1
+  	<if test="id !=null">
+	  	  and  id=#{id}
+  	</if>
+  	<if test=" phone !=null">
+	   and  phone=#{phone}
+	 </if> 
+	  <if test=" openid !=null">
+	   and  openid=#{openid}
+	 </if>
+	  
+  </select>
 </mapper>

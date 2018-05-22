@@ -506,6 +506,15 @@ public class StringUtils {
         return null;
       }
     }
+    
+    public static String getCheckCode(int size) {
+    	String checkCode="";
+    	for(int i=0;i<size;i++) {
+    		String code =(int) Math.floor(Math.random()*10)+"";
+    		checkCode+=code;
+    	}
+    	return checkCode;
+    }
     public static void main(String[] a){
         String escapeXML = escapeXML("\\");
         System.out.println(escapeXML);

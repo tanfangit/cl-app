@@ -136,8 +136,20 @@ public class TMember {
      */
     @Column(name = "openUserName")
     private String openusername;
+    
+    private Date captchaTime;
+    
+    
 
-    /**
+    public Date getCaptchaTime() {
+		return captchaTime;
+	}
+
+	public void setCaptchaTime(Date captchaTime) {
+		this.captchaTime = captchaTime;
+	}
+
+	/**
      * 获取会员ID
      *
      * @return id - 会员ID
