@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.company.project.dao.AccessTokenDao" >
+  <!-- <cache
+        eviction="FIFO"
+        flushInterval="60000"
+        size="512"
+        readOnly="true" /> -->
+  
+  <update id="updateAccessToken" parameterType="map"  >
+    update t_access_token
+    set accessToken = #{accessToken},
+      updateTime = #{updateTime}
+    
+  </update>
+  <select id="selectAccessToken" resultType="map">
+  select accessToken,updateTime  from t_access_token
+  
+  </select>
+  
+  <update id="updatejsapi_ticket"  parameterType="map">
+   update t_jsapi_ticket
+    set jsapi_ticket = #{jsapi_ticket},
+      updateTime = #{updateTime}
+  </update>
+  <select id="selectjsapi_ticket" resultType="map">
+  select jsapi_ticket,updateTime  from t_jsapi_ticket
+  </select>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.WeixinUserMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.dto.UserDTO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl" />
+    <result column="privilege" jdbcType="VARCHAR" property="privilege" />
+    <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+    <result column="crate_time" jdbcType="TIMESTAMP" property="cratetime" />
+    
+  </resultMap>
+  
+  <insert id="insertUserDTO" parameterType="com.company.project.dto.UserDTO">
+  		insert into t_weixin_user (`openid`,`nickname`,`sex`,`province`,`city`,`country`,`headimgurl`,`privilege`,`unionid`)
+  		values (#{openid},#{nickname},#{sex},#{province},#{city},#{country},#{headimgurl},#{privilege},#{unionid})
+  </insert>
+  <select id="selectUserDTO" parameterType="map" resultMap="BaseResultMap">
+  			select * from t_weixin_user where openid =#{openid}
+  	</select>
+</mapper>
