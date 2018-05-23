@@ -139,13 +139,13 @@
 	     <if test="idcode!=null">idCode=#{idcode},</if>
 	     <if test="captcha!=null">captcha=#{captcha},</if>
 	     <if test="captchaTime!=null">captchaTime=#{captchaTime},</if>
-	     
+	      <if test="status!=null">status=#{status},</if>
 	 </trim>
 	 WHERE 1=1 
 	 <if test=" id !=null">
 	   and  id=#{id}
 	 </if>
-	<if test=" phone !=null">
+	<if test=" phone !=null and id ==null">
 	   and  phone=#{phone}
 	 </if>
  </update>
@@ -160,6 +160,18 @@
 	  <if test=" openid !=null">
 	   and  openid=#{openid}
 	 </if>
+	  <if test=" usernameOrPhone !=null">
+	     and ( phone=#{usernameOrPhone} or  memberName=#{usernameOrPhone})
+	 </if>
 	  
   </select>
+  <delete id="deleteTMemberByMap"  parameterType="map">
+  	delete from t_member where 1=1
+  		<if test="id !=null">
+	  	  and  id=#{id}
+  	</if>
+  	<if test=" phone !=null">
+	   and  phone=#{phone}
+	 </if> 
+  </delete>
 </mapper>

@@ -11,4 +11,6 @@ public interface TMemberMapper extends Mapper<TMember> {
     int updateTMemberByTMember(TMember tMember);
     
     TMember selectTMemberByMap(Map<String,Object> map);
+    
+    int deleteTMemberByMap(Map<String,Object> map);
 }

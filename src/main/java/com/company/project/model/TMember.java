@@ -137,6 +137,7 @@ public class TMember {
     @Column(name = "openUserName")
     private String openusername;
     
+    @Column(name = "captchaTime")
     private Date captchaTime;
     
     

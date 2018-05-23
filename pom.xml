@@ -123,6 +123,13 @@
 	    <artifactId>dom4j</artifactId>
 	    <version>1.6.1</version>
 	</dependency>
+	<!--mvn install:install-file -DgroupId=com.ane -DartifactId=smsClient -Dversi
+on=0.0.1 -Dpackaging=jar -Dfile=smsClient-0.0.1-SNAPSHOT.jar-->
+	<dependency>
+			<groupId>com.ane</groupId>
+			<artifactId>smsClient</artifactId>
+			<version>0.0.1</version>
+	</dependency>
     </dependencies>
 
     <build>

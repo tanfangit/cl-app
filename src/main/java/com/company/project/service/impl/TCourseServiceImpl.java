@@ -131,7 +131,7 @@ public class TCourseServiceImpl extends AbstractService<TCourse> implements TCou
 					return ResultGenerator.genFailResult("取消报名失败,请稍后再试");
 				}
 			}else {
-				return ResultGenerator.genFailResult("报名失败,请稍后再试");
+				return ResultGenerator.genFailResult("取消报名失败,请稍后再试");
 			}
 			
 			

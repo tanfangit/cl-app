@@ -15,4 +15,6 @@ public interface TMemberService extends Service<TMember> {
     int updateTMemberByTMember(TMember tMember);
     
     TMember selectTMemberByMap(Map<String,Object> map);
+    
+    int deleteTMemberByMap(Map<String,Object> map);
 }

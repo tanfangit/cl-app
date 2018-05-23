@@ -39,4 +39,10 @@ public class TMemberServiceImpl extends AbstractService<TMember> implements TMem
 		return tMemberMapper.selectTMemberByMap(map);
 	}
 
+	@Override
+	public int deleteTMemberByMap(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tMemberMapper.deleteTMemberByMap(map);
+	}
+
 }
