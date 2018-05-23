@@ -31,5 +31,7 @@ public class PropertiesUtils {
 	public static Properties getProperties() {
 		return p;
 	}
-
+   public static void main(String[] args) {
+	   System.out.println("test");
+   }
 }
