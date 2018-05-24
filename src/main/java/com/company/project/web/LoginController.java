@@ -103,13 +103,14 @@ public class LoginController {
         		   }
         		   if(tMemberOld.getCaptcha().equals(tMember.getCaptcha())) {
         			   // 避免重复注册 判断 status 
-        			   if(tMemberOld.getStatus()!=null) {
+        			   if(tMemberOld.getIstemp()!=null) {
         				   return ResultGenerator.genFailResult("请不要重复注册");
         			   }
         			   //tMember.setMembernumber(StringUtils.getMembernumber(4));
         			   tMember.setStatus(0);
         			   tMember.setIstemp(0);
         			   tMember.setOpentype(1);
+        			   tMember.setOpenTime(new Date());
         			   tMember.setPassword(StringUtils.md5Password(tMember.getPassword()));
         			   tMemberService.updateTMemberByTMember(tMember);
         			   Map mapR  = new HashMap();

@@ -140,6 +140,7 @@
 	     <if test="captcha!=null">captcha=#{captcha},</if>
 	     <if test="captchaTime!=null">captchaTime=#{captchaTime},</if>
 	      <if test="status!=null">status=#{status},</if>
+	      <if test="openTime!=null">open_time=#{openTime},</if>
 	 </trim>
 	 WHERE 1=1 
 	 <if test=" id !=null">
