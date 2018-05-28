@@ -130,6 +130,12 @@ on=0.0.1 -Dpackaging=jar -Dfile=smsClient-0.0.1-SNAPSHOT.jar-->
 			<artifactId>smsClient</artifactId>
 			<version>0.0.1</version>
 	</dependency>
+  <!-- mvn install:install-file -DgroupId=com.ane -DartifactId=commons-codec -Dversion=1.9 -Dpackaging=jar -Dfile=commons-codec-1.9.jar -->
+  <dependency>
+ 	 <groupId>com.ane</groupId>
+ 	 <artifactId>commons-codec</artifactId>
+ 	 <version>1.9</version>
+  </dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
 	<dependency>
 	    <groupId>javax.servlet</groupId>

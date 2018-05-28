@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.TAntiqueDetailJobMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.TAntiqueDetailJob">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sdate" jdbcType="TIMESTAMP" property="sdate" />
+    <result column="edate" jdbcType="TIMESTAMP" property="edate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <select id="selectMaxTimeTAntiqueDetailJobByType" parameterType="int" resultMap="BaseResultMap">
+     select * from t_antique_detail_job where types=#{type} order by id desc limit 1
+  </select>
+</mapper>
