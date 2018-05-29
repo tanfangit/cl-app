@@ -168,7 +168,7 @@ public class TAntiqueController {
     		return ResultGenerator.genServerResult("服务器异常");
 		}
     }
-    @PostMapping("/typelist")
+   /* @PostMapping("/typelist")
     public Result typelist(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
         PageHelper.startPage(page, size);
         List<TAntiqueType> list = tAntiqueTypeService.findAll();
@@ -179,7 +179,7 @@ public class TAntiqueController {
         PageHelper.startPage(page, size);
         List<TAntiqueSource> list = tAntiqueSourceService.findAll();
         return ResultGenerator.genSuccessResult(list);
-    }
+    }*/
     @PostMapping("/detail")
     public Result detail(HttpServletRequest request) {
     	try {

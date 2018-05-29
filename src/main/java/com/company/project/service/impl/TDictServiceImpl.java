@@ -28,4 +28,28 @@ public class TDictServiceImpl extends AbstractService<TDict> implements TDictSer
 		return tDictMapper.selectTDictByCondition(map);
 	}
 
+	@Override
+	public int selectCountTDictByMap(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tDictMapper.selectCountTDictByMap(map);
+	}
+
+	@Override
+	public int deleteCountTDict(TDict tDict) {
+		// TODO Auto-generated method stub
+		return tDictMapper.deleteCountTDict(tDict);
+	}
+
+	@Override
+	public int insertCountTDict(TDict tDict) {
+		// TODO Auto-generated method stub
+		return tDictMapper.insertCountTDict(tDict);
+	}
+
+	@Override
+	public int updateCountTDict(TDict tDict) {
+		// TODO Auto-generated method stub
+		return tDictMapper.updateCountTDict(tDict);
+	}
+
 }

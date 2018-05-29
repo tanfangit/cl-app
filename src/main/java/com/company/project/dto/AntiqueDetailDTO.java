@@ -15,20 +15,20 @@ public class AntiqueDetailDTO {
      //文玩名称
      private String goodsName;
      //文玩类别old_id
-     private String category;
+     private int category;
      //文玩类别new_id
      private int typeid;
      //来源old_id
-     private String source;
+     private int source;
      //来源new_id
      private int sid;
      //年代old_id
-     private String years;
+     private int years;
      //年代new_id
      private int yid;
      
      //展览位置 old_id
-     private String exhibitionAddress;
+     private int exhibitionAddress;
      //展览位置 new_id
      private int aid;
      
@@ -41,7 +41,7 @@ public class AntiqueDetailDTO {
      //物品简介
      private String goodsSynopsis;
      //列表页图片 多个以,拼接
-     private String listPageImgList;
+     private String listPageImgStr;
      //文玩新增时间
      private String createTime;
      //文玩最新修改时间
@@ -77,10 +77,10 @@ public class AntiqueDetailDTO {
 	public void setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
 	}
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 	public int getTypeid() {
@@ -89,10 +89,10 @@ public class AntiqueDetailDTO {
 	public void setTypeid(int typeid) {
 		this.typeid = typeid;
 	}
-	public String getSource() {
+	public int getSource() {
 		return source;
 	}
-	public void setSource(String source) {
+	public void setSource(int source) {
 		this.source = source;
 	}
 	public int getSid() {
@@ -101,10 +101,10 @@ public class AntiqueDetailDTO {
 	public void setSid(int sid) {
 		this.sid = sid;
 	}
-	public String getYears() {
+	public int getYears() {
 		return years;
 	}
-	public void setYears(String years) {
+	public void setYears(int years) {
 		this.years = years;
 	}
 	public int getYid() {
@@ -144,17 +144,18 @@ public class AntiqueDetailDTO {
 	public void setGoodsSynopsis(String goodsSynopsis) {
 		this.goodsSynopsis = goodsSynopsis;
 	}
-	public String getListPageImgList() {
-		return listPageImgList;
-	}
-	public void setListPageImgList(String listPageImgList) {
-		this.listPageImgList = listPageImgList;
-	}
 	
-	public String getExhibitionAddress() {
+	
+	public String getListPageImgStr() {
+		return listPageImgStr;
+	}
+	public void setListPageImgStr(String listPageImgStr) {
+		this.listPageImgStr = listPageImgStr;
+	}
+	public int getExhibitionAddress() {
 		return exhibitionAddress;
 	}
-	public void setExhibitionAddress(String exhibitionAddress) {
+	public void setExhibitionAddress(int exhibitionAddress) {
 		this.exhibitionAddress = exhibitionAddress;
 	}
 	public String getCreateTime() {

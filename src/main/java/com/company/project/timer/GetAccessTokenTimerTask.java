@@ -14,7 +14,7 @@ import com.company.project.dao.AccessTokenDao;
 import com.company.project.util.AccessTokenUtil;
 import com.company.project.util.StringUtils;
 import com.company.project.util.SysConfigConstants;
-@Component
+/*@Component*/
 public class GetAccessTokenTimerTask {
 	  Log log = LogFactory.getLog(GetAccessTokenTimerTask.class);
 	  @Autowired

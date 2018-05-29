@@ -11,6 +11,17 @@ public class TAntiqueDetailDTO extends TAntiqueDetail{
      * 类别名称
      */
     private String typename;
+    /**
+     * 年份名称
+     */
+    private String yearname;
+    
+	public String getYearname() {
+		return yearname;
+	}
+	public void setYearname(String yearname) {
+		this.yearname = yearname;
+	}
 	public String getSourcename() {
 		return sourcename;
 	}

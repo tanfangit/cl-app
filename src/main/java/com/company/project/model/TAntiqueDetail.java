@@ -37,8 +37,9 @@ public class TAntiqueDetail {
     /**
      * 年代
      */
-    private String year;
-
+    private Integer year;
+    
+    
     /**
      * 编号
      */
@@ -194,7 +195,7 @@ public class TAntiqueDetail {
      *
      * @return year - 年代
      */
-    public String getYear() {
+    public Integer getYear() {
         return year;
     }
 
@@ -203,7 +204,7 @@ public class TAntiqueDetail {
      *
      * @param year 年代
      */
-    public void setYear(String year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 

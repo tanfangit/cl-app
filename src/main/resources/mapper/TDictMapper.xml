@@ -17,5 +17,22 @@
   			<if test=" TABLE_NAME != null ">
   				 and  TABLE_NAME = #{TABLE_NAME}
   			</if>
+  			<if test=" TYPE_CODE != null ">
+  				 and  TYPE_CODE = #{TYPE_CODE}
+  			</if>
   </select>
+  <select id="selectCountTDictByMap" parameterType="map" resultType="int">
+  	select count(1) from t_dict where TYPE_CODE =#{code} and KEYY=#{type}
+  </select>
+  <delete id="deleteCountTDict" parameterType="com.company.project.model.TDict" >
+   delete from t_dict where TYPE_CODE =#{typeCode} and KEYY=#{keyy}
+   
+  </delete>
+  <insert id="insertCountTDict" parameterType="com.company.project.model.TDict" >
+    insert into t_dict(`KEYY`,`VALUEE`,`FIELD_NAME`,`TABLE_NAME`,`TYPE_CODE`,`TYPE_NAME`)
+    values (#{keyy},#{valuee},#{fieldName},#{tableName},#{typeCode},#{typeName})
+  </insert>
+  <update id="updateCountTDict" parameterType="com.company.project.model.TDict" >
+  	update t_dict set VALUEE=#{valuee} where TYPE_CODE =#{typeCode} and KEYY=#{keyy}
+  </update>
 </mapper>

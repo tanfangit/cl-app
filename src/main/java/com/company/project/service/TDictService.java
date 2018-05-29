@@ -11,4 +11,12 @@ import com.company.project.model.TDict;
  */
 public interface TDictService extends Service<TDict> {
 	List<TDict>   selectTDictByCondition(Map<String,Object> map);
+	/*查询字典是否存在*/
+	int selectCountTDictByMap(Map<String,Object> map);
+	/*删除字典*/
+	int deleteCountTDict(TDict tDict);
+	/*新增字典*/
+	int insertCountTDict(TDict tDict);
+	/*更新字典*/
+	int updateCountTDict(TDict tDict);
 }

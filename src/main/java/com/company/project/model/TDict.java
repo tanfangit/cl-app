@@ -15,7 +15,7 @@ public class TDict {
      * 键
      */
     @Column(name = "KEYY")
-    private Long keyy;
+    private int keyy;
 
     /**
      * 值
@@ -34,8 +34,37 @@ public class TDict {
      */
     @Column(name = "TABLE_NAME")
     private String tableName;
-
+    
     /**
+     * 字段分类 code
+     */
+    @Column(name = "TYPE_CODE")
+    private String typeCode;
+    
+    /**
+     * 字段分类 名称
+     */
+    @Column(name = "TYPE_NAME")
+    private String typeName;
+    
+    
+    public String getTypeCode() {
+		return typeCode;
+	}
+
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+	/**
      * 获取字典ID
      *
      * @return DICT_ID - 字典ID
@@ -58,7 +87,7 @@ public class TDict {
      *
      * @return KEYY - 键
      */
-    public Long getKeyy() {
+    public int getKeyy() {
         return keyy;
     }
 
@@ -67,7 +96,7 @@ public class TDict {
      *
      * @param keyy 键
      */
-    public void setKeyy(Long keyy) {
+    public void setKeyy(int keyy) {
         this.keyy = keyy;
     }
 

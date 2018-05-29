@@ -67,11 +67,20 @@ public class TDictController {
 			   	 
 			   	if(type !=null) {
 			   		if(type ==1) {
-			   			map.put("FIELD_NAME", "typeid");
-			   			map.put("TABLE_NAME", "t_restaurant_detail");
+			   			map.put("TYPE_CODE", "rtype");
+			   			 
 			   		}else if(type ==2) {
-			   			map.put("FIELD_NAME", "typeid");
-			   			map.put("TABLE_NAME", "t_accommodation_detail");
+			   			map.put("TYPE_CODE", "atype");
+			   			 
+			   		}else if(type ==3) {
+			   			map.put("TYPE_CODE", "goods_category");
+			   			 
+			   		}else if(type ==4) {
+			   			map.put("TYPE_CODE", "goods_source");
+			   			 
+			   		}else if(type ==5) {
+			   			map.put("TYPE_CODE", "goods_years");
+			   			 
 			   		}
 			   		
 			   	}else {

@@ -22,9 +22,10 @@
     <result column="material" jdbcType="VARCHAR" property="material" />
     <result column="typeid" jdbcType="INTEGER" property="typeid" />
     <result column="source" jdbcType="VARCHAR" property="source" />
-    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="year" jdbcType="INTEGER" property="year" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="img" jdbcType="VARCHAR" property="img" /> 
+    <result column="yearname" jdbcType="VARCHAR" property="yearname" />
     <result column="typename" jdbcType="VARCHAR" property="typename" />
     <result column="sourcename" jdbcType="VARCHAR" property="sourcename" /> 
     <result column="sizes" jdbcType="VARCHAR" property="sizes" /> 
@@ -32,10 +33,11 @@
     <result column="explain" jdbcType="VARCHAR" property="explain" /> 
   </resultMap>
   <select id="selectTAntiqueDetailByCondition" parameterType="map" resultMap="TAntiqueDetailDTOMap">
-  			select t1.*,t2.name typename,t3.name sourcename from t_antique_detail t1
-  			left join t_antique_type t2 on t1.typeid = t2.id
-  			left join t_antique_source t3 on t1.sid = t3.id
-  			where 1=1 
+  			select t1.*,t2.VALUEE typename,t3.VALUEE sourcename ,t4.VALUEE yearname from t_antique_detail t1
+  			left join t_dict t2 on t1.typeid = t2.KEYY and T2.TYPE_CODE='goods_category' 
+  			left join t_dict t3 on t1.sid = t3.KEYY and T3.TYPE_CODE='goods_source' 
+  			left join t_dict t4 on t1.year = t4.KEYY and T4.TYPE_CODE='goods_years' 
+  			where 1=1  and status=3
   			<if test="aid != null">
   			    and t1.aid =#{aid}
   			</if>
@@ -52,4 +54,19 @@
   				and t1.id =#{id}
   			</if>
   </select>
+  
+  <select id="selectCountAntiqueDetailDTO" parameterType="com.company.project.dto.AntiqueDetailDTO" resultType="int">
+  			select count(1) from t_antique_detail where syncid=#{id} and syncid is not null
+  </select>
+  <delete id="deleteCountAntiqueDetailDTO" parameterType="com.company.project.dto.AntiqueDetailDTO" >
+  			delete from t_antique_detail where syncid=#{id} and syncid is not null
+  </delete>
+  <update id="updateCountAntiqueDetailDTO" parameterType="com.company.project.dto.AntiqueDetailDTO" >
+  			update t_antique_detail set aid=#{aid},name=#{goodsName},material=#{material},typeid=#{typeid},sid=#{sid},year=#{yid},number=#{goodsNum},
+  			sizes=#{sizeDesc},weights=#{weight},explains=#{goodsSynopsis},img=#{listPageImgStr},status=#{status} where syncid=#{id} and syncid is not null
+	</update>
+  <insert id="insertCountAntiqueDetailDTO" parameterType="com.company.project.dto.AntiqueDetailDTO" >
+            insert into t_antique_detail(`aid`,`name`,`material`,`typeid`,`sid`,`year`,`number`,`sizes`,`weights`,`explains`,`img`,`status`,`syncid`)
+            values (#{aid},#{goodsName},#{material},#{typeid},#{sid},#{yid},#{goodsNum},#{sizeDesc},#{weight},#{goodsSynopsis},#{listPageImgStr},#{status},#{id})
+  </insert>
 </mapper>
