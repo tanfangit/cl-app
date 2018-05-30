@@ -11,6 +11,12 @@
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <select id="selectMaxTimeTAntiqueDetailJobByType" parameterType="int" resultMap="BaseResultMap">
-     select * from t_antique_detail_job where types=#{type} order by id desc limit 1
+     select * from t_antique_detail_job where types=#{type} and status=0 order by id desc limit 1
   </select>
+  <insert id="insertTAntiqueDetailJob" parameterType="com.company.project.model.TAntiqueDetailJob">
+      insert into t_antique_detail_job(`sdate`,`edate`,`types`) values (#{sdate},#{edate},#{types})
+  </insert>
+  <update id="updateTAntiqueDetailJob" parameterType="com.company.project.model.TAntiqueDetailJob">
+  		update t_antique_detail_job set status =1 where id=#{id}
+  </update>
 </mapper>

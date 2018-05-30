@@ -24,9 +24,10 @@ import com.company.project.model.TaskDict;
 import com.company.project.service.AntiqueDetailService;
 import com.company.project.service.TAntiqueDetailJobService;
 import com.company.project.service.TDictService;
+import com.company.project.util.DateUtil;
 import com.company.project.util.URLUtil;
 
-/*@Component*/
+@Component
 public class AntiqueDetail {
 	Log log = LogFactory.getLog(AntiqueDetail.class);
 	
@@ -38,21 +39,22 @@ public class AntiqueDetail {
 	private TDictService tDictService;
 	private  String appKey = "aneapsc";
 	private  String appSecret = "123456";
-	@Scheduled(cron = "0 0/2 * * * ?")
+	@Scheduled(cron = "0 0/5 * * * ?")
     public void execute() {
     	//getAccessToken();
-		//TaskDict();
+		TaskDict();
 		AntiqueDetail();
     }
 	
 	public void AntiqueDetail() {
+		String sdate = "";
+		String edate = "";
 		try {
 			String url ="http://101.95.139.62:9969/apscws/services/antique/list";
 			String params ="";
-			String sdate = "";
-			String edate = "";
+			
 			Long timestamp = new Date().getTime();
-			System.out.println(timestamp);
+			//System.out.println(timestamp);
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			TAntiqueDetailJob tAntiqueDetailJob = tAntiqueDetailJobService.selectMaxTimeTAntiqueDetailJobByType(1);
 			sdate = formatter.format(tAntiqueDetailJob.getSdate());
@@ -63,12 +65,14 @@ public class AntiqueDetail {
 			map.put("digest", digest);
 			map.put("timestamp", timestamp+"");
 			map.put("params", params);
-			System.out.println(JSONObject.toJSON(map).toString());
+			log.info("AntiqueDetail 定时任务同步 post 数据"+JSONObject.toJSON(map).toString());
 			String rStr = URLUtil.sendPostByJson(url, JSONObject.toJSON(map).toString());
 			JSONObject result = JSONObject.parseObject(rStr);
 			JSONArray resultInfo =  result.getJSONArray("resultInfo");
+			log.info("AntiqueDetail 定时任务同步 "+sdate+"-"+edate+" 返回结果:"+rStr);
 			for(int i=0;i<resultInfo.size();i++) {
 				JSONObject obj = (JSONObject) resultInfo.get(i);
+				log.info("正在同步 第"+(i+1)+"条数据  :"+obj.toJSONString());
 				AntiqueDetailDTO antiqueDetailDTO = obj.toJavaObject(com.company.project.dto.AntiqueDetailDTO.class);
 				antiqueDetailDTO = setAntiqueDetailDTO(antiqueDetailDTO);
 				if(antiqueDetailService.selectCountAntiqueDetailDTO(antiqueDetailDTO)>0) {
@@ -83,12 +87,19 @@ public class AntiqueDetail {
 					antiqueDetailService.insertCountAntiqueDetailDTO(antiqueDetailDTO);
 				}
 			}
-			System.out.println(rStr);
-    	
+			// 完事 更新状态 插入job
+			tAntiqueDetailJobService.updateTAntiqueDetailJob(tAntiqueDetailJob);
+			tAntiqueDetailJob.setSdate(tAntiqueDetailJob.getEdate());
+			tAntiqueDetailJob.setEdate(DateUtil.add_minute(tAntiqueDetailJob.getEdate(), 5));
+			tAntiqueDetailJobService.insertTAntiqueDetailJob(tAntiqueDetailJob);
+			
+			log.info("AntiqueDetail 定时任务同步 "+sdate+"-"+edate+" 同步完成 ");
 			 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			log.error(e.getMessage(), e);
+			log.info("AntiqueDetail 定时任务同步 "+sdate+"-"+edate+" 同步异常 ");
 		}
 	}
 	public AntiqueDetailDTO setAntiqueDetailDTO(AntiqueDetailDTO antiqueDetailDTO) {
@@ -107,13 +118,13 @@ public class AntiqueDetail {
 		
 	}
 	public void TaskDict() {
+		String sdate = "";
+		String edate = "";
 		try {
 			String url ="http://101.95.139.62:9969/apscws/services/antique/dictlist";
 			String params ="";
-			String sdate = "";
-			String edate = "";
 			Long timestamp = new Date().getTime();
-			System.out.println(timestamp);
+			 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			TAntiqueDetailJob tAntiqueDetailJob = tAntiqueDetailJobService.selectMaxTimeTAntiqueDetailJobByType(2);
 			sdate = formatter.format(tAntiqueDetailJob.getSdate());
@@ -124,15 +135,18 @@ public class AntiqueDetail {
 			map.put("digest", digest);
 			map.put("timestamp", timestamp+"");
 			map.put("params", params);
-			System.out.println(JSONObject.toJSON(map).toString());
+			log.info("TaskDict 定时任务同步 post 数据"+JSONObject.toJSON(map).toString());
 			String rStr = URLUtil.sendPostByJson(url, JSONObject.toJSON(map).toString());
 			JSONObject result = JSONObject.parseObject(rStr);
 			JSONArray resultInfo =  result.getJSONArray("resultInfo");
+			log.info("TaskDict 定时任务同步 "+sdate+"-"+edate+" 返回结果:"+rStr);
 			for(int i=0;i<resultInfo.size();i++) {
 				JSONObject obj = (JSONObject) resultInfo.get(i);
+				log.info("TaskDict 定时任务 正在同步  :"+obj.toJSONString());
 				TaskDictDTO taskDictDTO = obj.toJavaObject(com.company.project.dto.TaskDictDTO.class);
 				List<TaskDict> list = taskDictDTO.getDetailList();
 				for(TaskDict taskDict:list) {
+					log.info("TaskDict 定时任务 正在同步   :"+taskDict.toString());
 					TDict tDict = new TDict();
 					// 首先判断存在不存在
 					Map maps = new HashMap();
@@ -166,12 +180,19 @@ public class AntiqueDetail {
 				}
 				System.out.println(taskDictDTO);
 			}
-			System.out.println(rStr);
-    	
+			// 完事 更新状态 插入job
+			
+			tAntiqueDetailJobService.updateTAntiqueDetailJob(tAntiqueDetailJob);
+			tAntiqueDetailJob.setSdate(tAntiqueDetailJob.getEdate());
+			tAntiqueDetailJob.setEdate(DateUtil.add_minute(tAntiqueDetailJob.getEdate(), 5));
+			tAntiqueDetailJobService.insertTAntiqueDetailJob(tAntiqueDetailJob); 
+			log.info("TaskDict 定时任务同步 "+sdate+"-"+edate+" 同步完成 ");
 			 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			log.error(e.getMessage(), e);
+			log.info("TaskDict 定时任务同步 "+sdate+"-"+edate+" 同步异常 ");
 		}
 	}
 	public Map<String,String> getTableV(TaskDict taskDict) {

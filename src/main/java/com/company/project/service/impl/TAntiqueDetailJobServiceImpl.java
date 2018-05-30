@@ -25,4 +25,16 @@ public class TAntiqueDetailJobServiceImpl extends AbstractService<TAntiqueDetail
 		return tAntiqueDetailJobMapper.selectMaxTimeTAntiqueDetailJobByType(type);
 	}
 
+	@Override
+	public int insertTAntiqueDetailJob(TAntiqueDetailJob tAntiqueDetailJob) {
+		// TODO Auto-generated method stub
+		return tAntiqueDetailJobMapper.insertTAntiqueDetailJob(tAntiqueDetailJob);
+	}
+
+	@Override
+	public int updateTAntiqueDetailJob(TAntiqueDetailJob tAntiqueDetailJob) {
+		// TODO Auto-generated method stub
+		return tAntiqueDetailJobMapper.updateTAntiqueDetailJob(tAntiqueDetailJob);
+	}
+
 }

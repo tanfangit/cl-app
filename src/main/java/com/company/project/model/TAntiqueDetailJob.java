@@ -26,8 +26,19 @@ public class TAntiqueDetailJob {
      * 0 同步未完成 1同步完成
      */
     private Integer status;
+    
+    private Integer types;
+    
 
-    /**
+    public Integer getTypes() {
+		return types;
+	}
+
+	public void setTypes(Integer types) {
+		this.types = types;
+	}
+
+	/**
      * 获取id
      *
      * @return id - id

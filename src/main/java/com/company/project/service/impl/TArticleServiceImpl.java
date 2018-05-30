@@ -7,6 +7,9 @@ import com.company.project.core.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 
@@ -19,4 +22,17 @@ public class TArticleServiceImpl extends AbstractService<TArticle> implements TA
     @Resource
     private TArticleMapper tArticleMapper;
 
+	@Override
+	public List<TArticle> selectTArticleByMap(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tArticleMapper.selectTArticleByMap(map);
+	}
+
+	@Override
+	public List<Map> selectpagehomebanner(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tArticleMapper.selectpagehomebanner(map);
+	}
+
 }
+

@@ -35,7 +35,7 @@ import com.company.project.util.URLUtil;
 import com.google.common.collect.Maps; 
 
 @Controller
-@RequestMapping(value = "/app/weixin")
+@RequestMapping(value = "/weixin")
 public class WeixinController {
 	Log log = LogFactory.getLog(WeixinController.class);
 	@Resource
@@ -50,7 +50,7 @@ public class WeixinController {
 	 * @param info
 	 * @return
 	 */
-	@PostMapping("/checkAccessToken.do") 
+	@PostMapping("/checkAccessToken") 
 	public Result checkAccessToken( String accessToken) {
 		
 		 
@@ -107,7 +107,7 @@ public class WeixinController {
 	 * @param info
 	 * @return
 	 */
-	@PostMapping("/user.do")
+	@PostMapping("/user")
 	public Result user(String code) {
 		
 		 
@@ -202,7 +202,7 @@ public class WeixinController {
 		}  
 		 
 	}
-	@PostMapping("/appUser.do")
+	@PostMapping("/appUser")
 	public Result appUser(String openid) {
 		try {
 			if (!StringUtils.isBlank(openid)) {
@@ -228,7 +228,7 @@ public class WeixinController {
 		 
 	}
 	
-	@PostMapping("/getJsSdkSignature.do")
+	@PostMapping("/getJsSdkSignature")
 	public Result getJsSdkSignature( String url) {
 		
 		 

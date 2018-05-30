@@ -16,4 +16,29 @@
     <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
     <result column="context" jdbcType="LONGVARCHAR" property="context" />
   </resultMap>
+  <select id="selectTArticleByMap" parameterType="map" resultMap="BaseResultMap">
+     select * from `t_article` where 1=1 
+     <if test="mtype == 1">
+         and robj in (1,3)
+     </if>
+      <if test="mtype == 2">
+         and robj in (2,3)
+     </if>
+     <if test="mtype == 3">
+         and robj in (4)
+     </if>
+  </select>
+  
+  <select id="selectpagehomebanner"  parameterType="map" resultType="map">
+  		SELECT id,resUrl resurl,TYPES,previewImg FROM   `t_pagehome_banner`
+  		<if test="mtype == 1">
+         and robj in (1,3)
+     </if>
+      <if test="mtype == 2">
+         and robj in (2,3)
+     </if>
+     <if test="mtype == 3">
+         and robj in (3)
+     </if>
+  </select>
 </mapper>

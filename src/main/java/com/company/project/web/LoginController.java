@@ -51,7 +51,7 @@ public class LoginController {
          }else{
         	 return ResultGenerator.genFailResult("短信发送失败");
          };
-        return ResultGenerator.genSuccessResult(captcha);
+        return ResultGenerator.genSuccessResult();
     }
 	@PostMapping("/checkCaptcha")
     public Result checkCaptcha(@RequestParam String phone,@RequestParam String captcha) {

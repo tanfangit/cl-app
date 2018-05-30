@@ -48,7 +48,7 @@
   				and t1.sid =#{sid}
   			</if>
   			<if test="year !=null">
-  				and t1.year =#{year,#jdbcType="VARCHAR"}
+  				and t1.year =#{year}
   			</if>
   			<if test="id !=null">
   				and t1.id =#{id}

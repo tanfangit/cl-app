@@ -10,4 +10,7 @@ public interface TAntiqueDetailJobService extends Service<TAntiqueDetailJob> {
 	/*获取 最后一个job*/
 	TAntiqueDetailJob selectMaxTimeTAntiqueDetailJobByType(int type);
 	
+	int insertTAntiqueDetailJob(TAntiqueDetailJob tAntiqueDetailJob);
+	
+	int updateTAntiqueDetailJob(TAntiqueDetailJob tAntiqueDetailJob);
 }

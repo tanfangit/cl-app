@@ -75,6 +75,12 @@ public int getType() {
 public void setType(int type) {
 	this.type = type;
 }
+@Override
+public String toString() {
+	return "TaskDict [code=" + code + ", isDeleted=" + isDeleted + ", createTime=" + createTime + ", cTime=" + cTime
+			+ ", typeName=" + typeName + ", description=" + description + ", updateTime=" + updateTime + ", uTime="
+			+ uTime + ", id=" + id + ", type=" + type + "]";
+}
    
    
 }
