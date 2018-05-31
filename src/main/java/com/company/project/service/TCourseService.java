@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.company.project.core.Result;
 import com.company.project.core.Service;
+import com.company.project.dto.CourseMsgDTO;
 import com.company.project.dto.TCourseDTO;
 import com.company.project.dto.TCourseDetailDTO;
 import com.company.project.dto.TCourseSignUpDTO;
@@ -29,4 +30,9 @@ public interface TCourseService extends Service<TCourse> {
     CourseReservationDelete selectCourseReservationDelete(Map<String,Integer> map);
     
     List<TCourseSignUpDTO> selectTCourseSignUpDTOByMap(Map<String,Object> map);
+    
+    /* 获取会员预约课程3天前的提醒消息**/
+    List<CourseMsgDTO> selectCourseMsgDTOByThreeDay(Map<String,Object> map);
+    /* 获取会员预约课程1天前的提醒消息**/
+    List<CourseMsgDTO> selectCourseMsgDTOByOneDay(Map<String,Object> map);
 }

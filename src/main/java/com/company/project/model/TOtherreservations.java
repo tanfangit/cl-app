@@ -35,7 +35,10 @@ public class TOtherreservations {
      * 餐饮类型id 多个以,拼接
      */
     private String rtypeids;
-
+    /**
+     * 用餐总人数
+     */
+    private String rnum;
     /**
      * 你的姓名
      */
@@ -178,7 +181,15 @@ public class TOtherreservations {
         this.rtypeids = rtypeids;
     }
 
-    /**
+    public String getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(String rnum) {
+		this.rnum = rnum;
+	}
+
+	/**
      * 获取你的姓名
      *
      * @return uname - 你的姓名

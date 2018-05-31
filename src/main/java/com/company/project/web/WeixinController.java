@@ -82,13 +82,13 @@ public class WeixinController {
 			            	param.put("jsapi_ticket", jsapi_ticket);
 			            	param.put("updateTime", new Date());
 			            	accessTokenDao.updatejsapi_ticket(param);
-			            	return   ResultGenerator.genSuccessResult();
+			            	return   ResultGenerator.genSuccessResult(2);
 			            }else{
 			            	return ResultGenerator.genFailResult("请稍后重试"); 
 			            }
 			           
 				 }else{
-					 return   ResultGenerator.genSuccessResult();
+					 return   ResultGenerator.genSuccessResult(1);
 				 }
 				 
 			 

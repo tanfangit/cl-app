@@ -27,7 +27,7 @@ import com.company.project.service.TDictService;
 import com.company.project.util.DateUtil;
 import com.company.project.util.URLUtil;
 
-@Component
+/*@Component*/
 public class AntiqueDetail {
 	Log log = LogFactory.getLog(AntiqueDetail.class);
 	
@@ -52,7 +52,7 @@ public class AntiqueDetail {
 		try {
 			String url ="http://101.95.139.62:9969/apscws/services/antique/list";
 			String params ="";
-			
+			Date begDate = new Date();
 			Long timestamp = new Date().getTime();
 			//System.out.println(timestamp);
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -90,7 +90,8 @@ public class AntiqueDetail {
 			// 完事 更新状态 插入job
 			tAntiqueDetailJobService.updateTAntiqueDetailJob(tAntiqueDetailJob);
 			tAntiqueDetailJob.setSdate(tAntiqueDetailJob.getEdate());
-			tAntiqueDetailJob.setEdate(DateUtil.add_minute(tAntiqueDetailJob.getEdate(), 5));
+			//tAntiqueDetailJob.setEdate(DateUtil.add_minute(tAntiqueDetailJob.getEdate(), 5));
+			tAntiqueDetailJob.setEdate(begDate);
 			tAntiqueDetailJobService.insertTAntiqueDetailJob(tAntiqueDetailJob);
 			
 			log.info("AntiqueDetail 定时任务同步 "+sdate+"-"+edate+" 同步完成 ");
@@ -124,7 +125,7 @@ public class AntiqueDetail {
 			String url ="http://101.95.139.62:9969/apscws/services/antique/dictlist";
 			String params ="";
 			Long timestamp = new Date().getTime();
-			 
+			Date begDate = new Date(); 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			TAntiqueDetailJob tAntiqueDetailJob = tAntiqueDetailJobService.selectMaxTimeTAntiqueDetailJobByType(2);
 			sdate = formatter.format(tAntiqueDetailJob.getSdate());
@@ -184,7 +185,8 @@ public class AntiqueDetail {
 			
 			tAntiqueDetailJobService.updateTAntiqueDetailJob(tAntiqueDetailJob);
 			tAntiqueDetailJob.setSdate(tAntiqueDetailJob.getEdate());
-			tAntiqueDetailJob.setEdate(DateUtil.add_minute(tAntiqueDetailJob.getEdate(), 5));
+			//tAntiqueDetailJob.setEdate(DateUtil.add_minute(tAntiqueDetailJob.getEdate(), 5));
+			tAntiqueDetailJob.setEdate(begDate);
 			tAntiqueDetailJobService.insertTAntiqueDetailJob(tAntiqueDetailJob); 
 			log.info("TaskDict 定时任务同步 "+sdate+"-"+edate+" 同步完成 ");
 			 

@@ -14,6 +14,7 @@ import com.company.project.core.AbstractService;
 import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
 import com.company.project.dao.TCourseMapper;
+import com.company.project.dto.CourseMsgDTO;
 import com.company.project.dto.TCourseDTO;
 import com.company.project.dto.TCourseDetailDTO;
 import com.company.project.dto.TCourseSignUpDTO;
@@ -163,6 +164,18 @@ public class TCourseServiceImpl extends AbstractService<TCourse> implements TCou
 	public List<TCourseSignUpDTO> selectTCourseSignUpDTOByMap(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return tCourseMapper.selectTCourseSignUpDTOByMap(map);
+	}
+
+	@Override
+	public List<CourseMsgDTO> selectCourseMsgDTOByThreeDay(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tCourseMapper.selectCourseMsgDTOByThreeDay(map);
+	}
+
+	@Override
+	public List<CourseMsgDTO> selectCourseMsgDTOByOneDay(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tCourseMapper.selectCourseMsgDTOByOneDay(map);
 	}
 
 }

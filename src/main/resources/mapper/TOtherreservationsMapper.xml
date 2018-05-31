@@ -45,6 +45,9 @@
      		 <if test="eids != null" >
        				 eids,
      		 </if>
+     		 <if test="rnum != null" >
+       				 rnum,
+     		 </if>
      		 <if test="rtypeids != null" >
        				 rtypeids,
      		 </if>
@@ -67,6 +70,9 @@
      		</if>
      		 <if test="eids != null" >
        				#{eids,jdbcType=VARCHAR},
+     		 </if>
+     		 <if test="rnum != null" >
+       				#{rnum,jdbcType=INTEGER},
      		 </if>
      		 <if test="rtypeids != null" >
        				 #{rtypeids,jdbcType=VARCHAR},
