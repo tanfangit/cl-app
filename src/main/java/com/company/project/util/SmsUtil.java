@@ -47,6 +47,37 @@ public class SmsUtil {
 		return flag;
     	 
      }
+     public static boolean sendSmsByContext(String context,String phone) {
+    	 boolean flag = false;
+    	 String sendInfo = SmsClientUtil.post(postIp, new SmsEntity(account, 1, phone, context, 1, "201501301055", key));
+    	 try {
+			Document document = DocumentHelper.parseText(sendInfo);
+			Element root = document.getRootElement();
+			for (Iterator i = root.elementIterator(); i.hasNext();) {
+
+				Element el = (Element) i.next();
+
+				if("id".equals(el.getName())){
+					Attribute Attribute = el.attribute("code");
+					if(Attribute != null) {
+						if("1".equals(Attribute.getStringValue())) {
+							flag = true;
+							break;
+						}else {
+							break;
+						}
+					}
+					
+				}
+
+		  }
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return flag;
+    	 
+     }
      public static void main(String[] args) {
     	 sendSmsByCaptcha("123456","18175164590");
      }

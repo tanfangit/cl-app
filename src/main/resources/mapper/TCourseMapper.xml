@@ -101,6 +101,7 @@
  
   <resultMap type="com.company.project.dto.CourseMsgDTO" id="CourseMsgDTO">
   		 <result column="cid" jdbcType="INTEGER" property="cid" />
+  		 <result column="mid" jdbcType="INTEGER" property="mid" />
   		 <result column="cname" jdbcType="VARCHAR" property="cname" />
   		 <result column="phone" jdbcType="VARCHAR" property="phone" />
   </resultMap>
@@ -263,23 +264,34 @@
   </select>
   
   <select id="selectCourseMsgDTOByThreeDay" parameterType="map" resultMap="CourseMsgDTO">
-  		SELECT t2.id cid,t2.name cname,t3.phone FROM  t_coursereservation t1 
+  		SELECT t2.id cid,t1.mId mid,t2.name cname,t3.phone FROM  t_coursereservation t1 
 		LEFT JOIN t_course t2 ON t1.cId=t2.id
 		LEFT JOIN t_member t3 ON t3.id=t1.mId
 		WHERE 1=1
 		AND DATE(DATE_SUB(t2.sTime,INTERVAL 3 DAY))=DATE(NOW())
 		<if test="mid!=null">
 		and t1.mId =#{mid}
-		</if>  		
+		</if>  
+		<if test="sendPhone !=null">
+		  AND NOT EXISTS( SELECT 1 FROM t_coursereservation_msg t4 WHERE t4.cId=t1.cId AND t4.mId= t1.mId AND t4.type=1)
+		</if>		
   </select>
   <select id="selectCourseMsgDTOByOneDay" parameterType="map" resultMap="CourseMsgDTO">
-  		SELECT t2.id cid,t2.name cname,t3.phone FROM  t_coursereservation t1 
+  		SELECT t2.id cid,t1.mId mid,t2.name cname,t3.phone FROM  t_coursereservation t1 
 		LEFT JOIN t_course t2 ON t1.cId=t2.id
 		LEFT JOIN t_member t3 ON t3.id=t1.mId
 		WHERE 1=1
 		AND DATE(DATE_SUB(t2.sTime,INTERVAL 1 DAY))=DATE(NOW())
 		<if test="mid!=null">
 		and t1.mId =#{mid}
-		</if>  		
+		</if>  	
+		<if test="sendPhone !=null">
+		  AND NOT EXISTS( SELECT 1 FROM t_coursereservation_msg t4 WHERE t4.cId=t1.cId AND t4.mId= t1.mId AND t4.type=2)
+		</if>	
   </select>
+  <insert id="insertCoursereservationMsg" parameterType="map"  >
+         INSERT INTO t_coursereservation_msg(`cId`,`mId`,`type`,`context`)
+		 VALUES (#{cId},#{mId},#{type},#{context})
+         
+  </insert>
 </mapper>

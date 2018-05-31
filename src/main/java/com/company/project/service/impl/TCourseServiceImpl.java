@@ -178,4 +178,10 @@ public class TCourseServiceImpl extends AbstractService<TCourse> implements TCou
 		return tCourseMapper.selectCourseMsgDTOByOneDay(map);
 	}
 
+	@Override
+	public int insertCoursereservationMsg(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return tCourseMapper.insertCoursereservationMsg(map);
+	}
+
 }

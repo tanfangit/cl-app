@@ -35,4 +35,7 @@ public interface TCourseService extends Service<TCourse> {
     List<CourseMsgDTO> selectCourseMsgDTOByThreeDay(Map<String,Object> map);
     /* 获取会员预约课程1天前的提醒消息**/
     List<CourseMsgDTO> selectCourseMsgDTOByOneDay(Map<String,Object> map);
+    
+    /*插入短信发送记录 避免重复发送短信*/
+    int insertCoursereservationMsg(Map<String,Object> map);
 }
