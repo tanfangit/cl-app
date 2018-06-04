@@ -16,6 +16,15 @@ public class TantiqueCollectionsDTO extends TAntiqueDetail{
      * 类别名称
      */
     private String typename;
+    private String yearname;
+    
+    
+	public String getYearname() {
+		return yearname;
+	}
+	public void setYearname(String yearname) {
+		this.yearname = yearname;
+	}
 	public String getSourcename() {
 		return sourcename;
 	}

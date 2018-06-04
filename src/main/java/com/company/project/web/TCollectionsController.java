@@ -1,4 +1,18 @@
 package com.company.project.web;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
 import com.company.project.dto.TAccommodationCollectionsDTO;
@@ -8,23 +22,7 @@ import com.company.project.dto.TRestauratCollectionsDTO;
 import com.company.project.dto.TantiqueCollectionsDTO;
 import com.company.project.model.TCollections;
 import com.company.project.service.TCollectionsService;
-import com.company.project.util.StringUtils;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
 * Created by tanfan on 2018/05/16.
@@ -38,8 +36,20 @@ public class TCollectionsController {
 
     @PostMapping("/add")
     public Result add(TCollections tCollections) {
+    	try {
+			
+		
         tCollectionsService.save(tCollections);
         return ResultGenerator.genSuccessResult();
+    	}catch(org.springframework.dao.DuplicateKeyException ex) {
+    		logger.error(ex.getMessage(), ex);
+    		return ResultGenerator.genFailResult("请不要重复收藏");
+    	} catch (Exception e) {
+			// TODO: handle exception
+    	
+    		logger.error(e.getMessage(), e);
+    		return ResultGenerator.genSuccessResult();
+		}
     }
 
     @PostMapping("/delete")

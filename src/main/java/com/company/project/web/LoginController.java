@@ -31,50 +31,62 @@ public class LoginController {
 	private TMemberService tMemberService;
 	@PostMapping("/getCaptcha")
     public Result getCaptcha(@RequestParam String phone) {
+		try {
+			
 		
-         String captcha = StringUtils.getCheckCode(6);
-         
-         if(SmsUtil.sendSmsByCaptcha(captcha, phone)) {
-        	 //查询phone 是否注册
-        	 Map map = new HashMap();
-        	 map.put("phone", phone);
-        	 TMember tMember = tMemberService.selectTMemberByMap(map);
-        	 TMember tmpMember = new TMember ();
-    		 tmpMember.setPhone(phone);
-    		 tmpMember.setCaptcha(captcha);
-    		 tmpMember.setCaptchaTime(new Date());
-        	 if(tMember!=null) {
-        		  tMemberService.updateTMemberByTMember(tmpMember);
-        	 }else {
-        		 tMemberService.insertTMemberByTMember(tmpMember);
-        	 }
-         }else{
-        	 return ResultGenerator.genFailResult("短信发送失败");
-         };
-        return ResultGenerator.genSuccessResult();
+	         String captcha = StringUtils.getCheckCode(6);
+	         
+	         if(SmsUtil.sendSmsByCaptcha(captcha, phone)) {
+	        	 //查询phone 是否注册
+	        	 Map map = new HashMap();
+	        	 map.put("phone", phone);
+	        	 TMember tMember = tMemberService.selectTMemberByMap(map);
+	        	 TMember tmpMember = new TMember ();
+	    		 tmpMember.setPhone(phone);
+	    		 tmpMember.setCaptcha(captcha);
+	    		 tmpMember.setCaptchaTime(new Date());
+	        	 if(tMember!=null) {
+	        		  tMemberService.updateTMemberByTMember(tmpMember);
+	        	 }else {
+	        		 tMemberService.insertTMemberByTMember(tmpMember);
+	        	 }
+	         }else{
+	        	 return ResultGenerator.genFailResult("短信发送失败");
+	         };
+	        return ResultGenerator.genSuccessResult();
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error(e.getMessage(), e);
+			return ResultGenerator.genServerResult("服务器异常");
+		}
     }
 	@PostMapping("/checkCaptcha")
     public Result checkCaptcha(@RequestParam String phone,@RequestParam String captcha) {
-		
+		try {
           
         	 //查询phone 是否注册
-        	 Map map = new HashMap();
-        	 map.put("phone", phone);
-        	 TMember tMember = tMemberService.selectTMemberByMap(map);
-        	 if(tMember!=null) {
-        		   if(DateUtil.add_minute(tMember.getCaptchaTime(), 3).before(new Date())) {
-        			   return ResultGenerator.genSuccessResult(3);
-        		   }
-        		   if(captcha.equals(tMember.getCaptcha())) {
-        			   return ResultGenerator.genSuccessResult(1);
-        		   }else {
-        			   return ResultGenerator.genSuccessResult(2);
-        		   }
-        	 }else {
-        		 
-        	 }
-          
-        return ResultGenerator.genSuccessResult(4);
+	        	 Map map = new HashMap();
+	        	 map.put("phone", phone);
+	        	 TMember tMember = tMemberService.selectTMemberByMap(map);
+	        	 if(tMember!=null) {
+	        		   if(DateUtil.add_minute(tMember.getCaptchaTime(), 3).before(new Date())) {
+	        			   return ResultGenerator.genSuccessResult(3);
+	        		   }
+	        		   if(captcha.equals(tMember.getCaptcha())) {
+	        			   return ResultGenerator.genSuccessResult(1);
+	        		   }else {
+	        			   return ResultGenerator.genSuccessResult(2);
+	        		   }
+	        	 }else {
+	        		 
+	        	 }
+	          
+	        return ResultGenerator.genSuccessResult(4);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error(e.getMessage(), e);
+			return ResultGenerator.genServerResult("服务器异常");
+		}
     }
 	@PostMapping("/reg")
     public Result reg(TMember tMember,HttpServletRequest request) {

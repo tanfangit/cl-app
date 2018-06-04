@@ -49,7 +49,20 @@ public class TAccommodationBanner {
    @Column(name = "cUserId")
    private Integer cuserid;
    
-   public Integer getId() {
+   @Column(name = "previewImg")
+   private String previewImg;
+   
+   
+   
+   public String getPreviewImg() {
+	return previewImg;
+}
+
+public void setPreviewImg(String previewImg) {
+	this.previewImg = previewImg;
+}
+
+public Integer getId() {
 		return id;
 	}
 

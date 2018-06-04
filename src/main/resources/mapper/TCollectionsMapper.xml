@@ -39,6 +39,7 @@
 	    <result column="img" jdbcType="VARCHAR" property="img" /> 
 	    <result column="typename" jdbcType="VARCHAR" property="typename" />
 	    <result column="sourcename" jdbcType="VARCHAR" property="sourcename" /> 
+	    <result column="yearname" jdbcType="VARCHAR" property="yearname" />
 	    <result column="sizes" jdbcType="VARCHAR" property="sizes" /> 
 	    <result column="weights" jdbcType="VARCHAR" property="weights" /> 
 	    <result column="explain" jdbcType="VARCHAR" property="explain" /> 
@@ -99,11 +100,12 @@
   </select>
   <select id="selectTantiqueCollectionsDTOByMap" parameterType="map" resultMap="TantiqueCollectionsDTO">
        select t2.*,t1.id cid,t1.crate_time cTime,
-       t3.name typename,t4.name sourcename
+       t3.VALUEE typename,t4.VALUEE sourcename,t5.VALUEE yearname
         from t_collections t1 
       inner join t_antique_detail t2 on t1.cid =t2.id 
-      left join t_antique_type t3 on t2.typeid = t3.id
-  	left join t_antique_source t4 on t2.sid = t4.id
+      left join t_dict t3 on t2.typeid = t3.KEYY and t3.TYPE_CODE='goods_category'
+  	  left join t_dict t4 on t2.sid = t4.KEYY and t4.TYPE_CODE='goods_source'
+  	  left join t_dict t5 on t2.year = t5.KEYY and t5.TYPE_CODE='goods_years'
       where t1.type = 2
       and t1.mid =#{mid}
   </select>

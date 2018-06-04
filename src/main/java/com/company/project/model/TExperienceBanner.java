@@ -64,12 +64,26 @@ public class TExperienceBanner {
     private String cusername;
 
     /**
+     * 
+     */
+    @Column(name = "previewImg")
+    private String previewImg;
+    
+    /**
      * 创建时间
      */
     @Column(name = "crate_time")
     private Date crateTime;
+    
+    public String getPreviewImg() {
+		return previewImg;
+	}
 
-    /**
+	public void setPreviewImg(String previewImg) {
+		this.previewImg = previewImg;
+	}
+
+	/**
      * 获取文玩首页Id
      *
      * @return aid - 文玩首页Id
