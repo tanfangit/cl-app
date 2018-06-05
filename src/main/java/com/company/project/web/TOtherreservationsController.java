@@ -96,23 +96,28 @@ public class TOtherreservationsController {
     		}
     		String alist = request.getParameter("alist");
     		//JSONObject obj = new JSONObject();
-    		JSONArray  jsonArr =  JSONArray.parseArray(alist);
-    		List<TOtherreservationsAccommodation>  accommodations= new ArrayList();
-    		TOtherreservationsAccommodation tOtherreservationsAccommodation;
-    		for(Object object : jsonArr) {
-    			 	JSONObject jsonObjectone = (JSONObject) object;
-    		        String typename = jsonObjectone.getString("typename");
-    		        Integer id = jsonObjectone.getInteger("id");
-    		        Integer count = jsonObjectone.getInteger("count");
-    		        Integer rcount = jsonObjectone.getInteger("rcount");
-    		        tOtherreservationsAccommodation = new TOtherreservationsAccommodation();
-    		        tOtherreservationsAccommodation.setTypeid(id);
-    		        tOtherreservationsAccommodation.setTypename(typename);
-    		        tOtherreservationsAccommodation.setCount(count);
-    		        tOtherreservationsAccommodation.setRcount(rcount);
-    		        accommodations.add(tOtherreservationsAccommodation);
+    		
+    		if(StringUtils.isEmpty(alist)) {
+    			JSONArray  jsonArr =  JSONArray.parseArray(alist);
+    			List<TOtherreservationsAccommodation>  accommodations= new ArrayList();
+        		TOtherreservationsAccommodation tOtherreservationsAccommodation;
+        		for(Object object : jsonArr) {
+        			 	JSONObject jsonObjectone = (JSONObject) object;
+        		        String typename = jsonObjectone.getString("typename");
+        		        Integer id = jsonObjectone.getInteger("id");
+        		        Integer count = jsonObjectone.getInteger("count");
+        		        Integer rcount = jsonObjectone.getInteger("rcount");
+        		        tOtherreservationsAccommodation = new TOtherreservationsAccommodation();
+        		        tOtherreservationsAccommodation.setTypeid(id);
+        		        tOtherreservationsAccommodation.setTypename(typename);
+        		        tOtherreservationsAccommodation.setCount(count);
+        		        tOtherreservationsAccommodation.setRcount(rcount);
+        		        accommodations.add(tOtherreservationsAccommodation);
+        		}
+        		tOtherreservationsDTO.setAccommodations(accommodations);
     		}
-    		tOtherreservationsDTO.setAccommodations(accommodations);
+    		
+    		
     		return tOtherreservationsService.signUp(tOtherreservationsDTO); 
     	}catch (Exception e) {
 			// TODO: handle exception

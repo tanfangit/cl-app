@@ -57,10 +57,13 @@ public class TOtherreservationsServiceImpl extends AbstractService<TOtherreserva
 			tOtherreservationsMapper.deleteTotherReservationsAccommodationByOid(tOtherreservationsDTO.getId());
 		}
 		tOtherreservationsMapper.insertTotherReservations(tOtherreservationsDTO);
-		for(TOtherreservationsAccommodation tOtherreservationsAccommodation : tOtherreservationsDTO.getAccommodations()) {
-			tOtherreservationsAccommodation.setOid(tOtherreservationsDTO.getId());
-			tOtherreservationsMapper.insertTotherReservationsAccommodation(tOtherreservationsAccommodation);
+		if(tOtherreservationsDTO.getAccommodations()!=null) {
+			for(TOtherreservationsAccommodation tOtherreservationsAccommodation : tOtherreservationsDTO.getAccommodations()) {
+				tOtherreservationsAccommodation.setOid(tOtherreservationsDTO.getId());
+				tOtherreservationsMapper.insertTotherReservationsAccommodation(tOtherreservationsAccommodation);
+			}
 		}
+		
 		return  ResultGenerator.genSuccessResult();
 	}
 
