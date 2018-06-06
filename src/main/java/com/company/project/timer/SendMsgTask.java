@@ -14,7 +14,7 @@ import com.company.project.dto.CourseMsgDTO;
 import com.company.project.service.TCourseService;
 import com.company.project.util.SmsUtil;
 
-@Component
+/*@Component*/
 public class SendMsgTask {
 	Log log = LogFactory.getLog(SendMsgTask.class);
 	@Autowired

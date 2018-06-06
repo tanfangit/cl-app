@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.company.project.core.Result;
@@ -34,7 +35,7 @@ import com.company.project.util.SysConfigConstants;
 import com.company.project.util.URLUtil;
 import com.google.common.collect.Maps; 
 
-@Controller
+@RestController
 @RequestMapping(value = "/weixin")
 public class WeixinController {
 	Log log = LogFactory.getLog(WeixinController.class);
@@ -210,15 +211,21 @@ public class WeixinController {
 				Map<String, Object> map=new HashMap();
 				map.put("openid", openid);
 				UserDTO userDTO =weixinUserMapper.selectUserDTO(map);
-				TMember tMember = tMemberService.selectTMemberByMap(map);
-				if(tMember!=null) {
-					userDTO.settMember(tMember);
-					userDTO.setRegstatus("1");
-				}else {
-					userDTO.setRegstatus("0");
+				if(userDTO !=null) {
+					TMember tMember = tMemberService.selectTMemberByMap(map);
+					if(tMember!=null) {
+						userDTO.settMember(tMember);
+						userDTO.setRegstatus("1");
+					}else {
+						userDTO.setRegstatus("0");
+					}
+					return ResultGenerator.genSuccessResult(userDTO);
+				} else {
+					return ResultGenerator.genSuccessResult();
 				}
-				return ResultGenerator.genSuccessResult(userDTO);
-			} else {
+				
+				
+			}else {
 				return ResultGenerator.genParmeterErrorResult();   
 			}
 		} catch (Exception e) {
